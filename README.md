@@ -1,3 +1,57 @@
+# Orbita Dashboard Web App
+
+## Configuración de Supabase para Autenticación
+
+Para utilizar la autenticación con Supabase, debes configurar un archivo `.env.local` en la raíz del proyecto con las siguientes variables:
+
+```
+# Supabase - Solo para uso en servidor
+SUPABASE_URL=https://tu-proyecto.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=tu-clave-de-servicio-secreta
+```
+
+> **Importante**: Todas las conexiones a Supabase se realizan exclusivamente desde el servidor para mayor seguridad.
+
+### Pasos para configurar Supabase
+
+1. Crea una cuenta en [Supabase](https://supabase.com) si aún no tienes una
+2. Crea un nuevo proyecto
+3. Ve a Settings > API y copia las URLs y la clave de servicio (Service Role Key)
+4. Crea la tabla `users_profile` con la siguiente estructura:
+
+```sql
+create table users_profile (
+  id uuid primary key references auth.users(id) on delete cascade,
+  name text not null,
+  age integer,
+  instruction_category text,
+  instruction_option text,
+  region text,
+  province text,
+  created_at timestamp with time zone default now()
+);
+
+-- Configurar RLS (Row Level Security)
+alter table users_profile enable row level security;
+
+-- Crear políticas para acceso
+create policy "Los usuarios pueden ver sus propios perfiles"
+  on users_profile for select
+  using (auth.uid() = id);
+
+create policy "Los usuarios pueden actualizar sus propios perfiles"
+  on users_profile for update
+  using (auth.uid() = id);
+```
+
+## Desarrollo
+
+Para iniciar el entorno de desarrollo:
+
+```bash
+npm run dev
+```
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
