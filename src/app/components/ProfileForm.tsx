@@ -1,37 +1,83 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
+import { useAuth } from "../context/AuthContext";
 
 const ProfileForm = () => {
+  const { user } = useAuth();
   const [formData, setFormData] = useState({
-    name: "Explorador Espacial",
-    email: "explorador@espacial.com",
+    name: "",
+    email: "",
     birth: "2000-01-01",
     gender: "Prefiero no decir",
     education: "Licenciatura",
     interests: ["Tecnología", "Ciencia", "Arte"],
-    bio: "Explorador del espacio virtual en búsqueda de mi vocación y propósito."
+    bio: "Explorador del espacio virtual en búsqueda de mi vocación y propósito.",
   });
 
   const [isEditing, setIsEditing] = useState(false);
   const [savedMessage, setSavedMessage] = useState("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  // Cargar datos del usuario autenticado cuando esté disponible
+  useEffect(() => {
+    if (user) {
+      setFormData((prevData) => ({
+        ...prevData,
+        name: user.name || prevData.name,
+        email: user.email || prevData.email,
+        // Otros campos si están disponibles en los datos del usuario
+        ...(user.profileData?.age && {
+          birth: calculateBirthYear(user.profileData.age),
+        }),
+        ...(user.profileData?.instruction?.category && {
+          education: mapInstructionToEducation(
+            user.profileData.instruction.category
+          ),
+        }),
+      }));
+    }
+  }, [user]);
+
+  // Función para calcular el año de nacimiento basado en la edad
+  const calculateBirthYear = (age: number) => {
+    const currentYear = new Date().getFullYear();
+    const birthYear = currentYear - age;
+    return `${birthYear}-01-01`; // Formato YYYY-MM-DD usando el 1 de enero como fecha predeterminada
+  };
+
+  // Función para mapear categoría de instrucción a nivel educativo
+  const mapInstructionToEducation = (category: string) => {
+    const educationMap: Record<string, string> = {
+      primaria: "Primaria",
+      secundaria: "Secundaria",
+      tecnico: "Técnico",
+      universitario: "Licenciatura",
+      postgrado: "Postgrado",
+    };
+
+    return educationMap[category.toLowerCase()] || "Licenciatura";
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Simulate saving data
     setTimeout(() => {
       setSavedMessage("¡Perfil actualizado con éxito!");
       setIsEditing(false);
-      
+
       // Hide message after 3 seconds
       setTimeout(() => {
         setSavedMessage("");
@@ -42,7 +88,9 @@ const ProfileForm = () => {
   return (
     <div className="p-6 max-w-4xl mx-auto">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-2xl font-bold text-white">Configuración del Perfil</h1>
+        <h1 className="text-2xl font-bold text-white">
+          Configuración del Perfil
+        </h1>
         {!isEditing && (
           <button
             onClick={() => setIsEditing(true)}
@@ -52,7 +100,7 @@ const ProfileForm = () => {
           </button>
         )}
       </div>
-      
+
       {savedMessage && (
         <div className="mb-6 p-4 bg-green-900/40 border border-green-500/50 rounded-lg text-green-400">
           {savedMessage}
@@ -73,8 +121,19 @@ const ProfileForm = () => {
                     </div>
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="w-12 h-12 flex items-center justify-center">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10 opacity-40">
-                          <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="w-10 h-10 opacity-40"
+                        >
+                          <path
+                            d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+                            stroke="white"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
                         </svg>
                       </div>
                     </div>
@@ -90,11 +149,13 @@ const ProfileForm = () => {
                 </button>
               )}
             </div>
-            
+
             {/* Form fields */}
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">Nombre</label>
+                <label className="block text-sm font-medium text-gray-300 mb-1">
+                  Nombre
+                </label>
                 <input
                   type="text"
                   name="name"
@@ -104,9 +165,11 @@ const ProfileForm = () => {
                   className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white disabled:opacity-60 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
-              
+
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">Email</label>
+                <label className="block text-sm font-medium text-gray-300 mb-1">
+                  Email
+                </label>
                 <input
                   type="email"
                   name="email"
@@ -116,9 +179,11 @@ const ProfileForm = () => {
                   className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white disabled:opacity-60 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
-              
+
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">Fecha de Nacimiento</label>
+                <label className="block text-sm font-medium text-gray-300 mb-1">
+                  Fecha de Nacimiento
+                </label>
                 <input
                   type="date"
                   name="birth"
@@ -129,10 +194,12 @@ const ProfileForm = () => {
                 />
               </div>
             </div>
-            
+
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">Género</label>
+                <label className="block text-sm font-medium text-gray-300 mb-1">
+                  Género
+                </label>
                 <select
                   name="gender"
                   value={formData.gender}
@@ -146,9 +213,11 @@ const ProfileForm = () => {
                   <option value="Prefiero no decir">Prefiero no decir</option>
                 </select>
               </div>
-              
+
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">Nivel de Educación</label>
+                <label className="block text-sm font-medium text-gray-300 mb-1">
+                  Nivel de Educación
+                </label>
                 <select
                   name="education"
                   value={formData.education}
@@ -163,24 +232,33 @@ const ProfileForm = () => {
                   <option value="Doctorado">Doctorado</option>
                 </select>
               </div>
-              
+
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">Intereses Principales</label>
+                <label className="block text-sm font-medium text-gray-300 mb-1">
+                  Intereses Principales
+                </label>
                 <input
                   type="text"
                   name="interests"
                   value={formData.interests.join(", ")}
-                  onChange={(e) => setFormData({...formData, interests: e.target.value.split(", ")})}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      interests: e.target.value.split(", "),
+                    })
+                  }
                   disabled={!isEditing}
                   className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white disabled:opacity-60 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   placeholder="Tecnología, Ciencia, Arte..."
                 />
               </div>
             </div>
-            
+
             {/* Bio (full width) */}
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-300 mb-1">Biografía</label>
+              <label className="block text-sm font-medium text-gray-300 mb-1">
+                Biografía
+              </label>
               <textarea
                 name="bio"
                 value={formData.bio}
@@ -191,7 +269,7 @@ const ProfileForm = () => {
               />
             </div>
           </div>
-          
+
           {/* Action buttons */}
           {isEditing && (
             <div className="flex justify-end gap-4">
@@ -216,4 +294,4 @@ const ProfileForm = () => {
   );
 };
 
-export default ProfileForm; 
+export default ProfileForm;
