@@ -1,5 +1,4 @@
 import React from "react";
-import { useRouter } from 'next/navigation';
 
 interface CardInfoProps {
   name: string;
@@ -11,15 +10,9 @@ interface CardInfoProps {
 }
 
 const CardInfo: React.FC<CardInfoProps> = ({ name, progress, route, style, description, onLearnMore }) => {
-  const router = useRouter();
-
   const handleClick = () => {
-    if (onLearnMore && description) {
-      // Si tenemos onLearnMore y description, mostramos el modal
-      onLearnMore({ name, progress, description });
-    } else {
-      // Si no, navegamos a la ruta del test
-      router.push(route);
+    if (onLearnMore) {
+      onLearnMore({ name, progress, route, description });
     }
   };
 

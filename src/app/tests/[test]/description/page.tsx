@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import testData from '../../../data/test-questions.json';
+import testsData from '../../../data/tests-data';
 
 const TestDescription = () => {
   const router = useRouter();
@@ -14,7 +14,7 @@ const TestDescription = () => {
 
   useEffect(() => {
     if (params.test) {
-      const test = testData.tests.find(t => t.route === params.test);
+      const test = testsData.find(t => t.route === params.test);
       if (test) {
         setTestInfo(test);
       }
@@ -34,7 +34,7 @@ const TestDescription = () => {
         if (progress >= 100) {
           clearInterval(interval);
           setTimeout(() => {
-            router.push(`/tests/${testInfo.route}`);
+            router.push(`/tests/${testInfo.route}?skipLoader=true`);
           }, 500);
         }
       }, 100);
@@ -110,11 +110,11 @@ const TestDescription = () => {
     );
   }
 
-  // Get test index for visual elements
-  const testIndex = testData.tests.findIndex(t => t.route === testInfo.route);
-  const planetNumber = testIndex + 1;
-  const planetColors = ["#7be495", "#4f8cff", "#ffb347", "#ff6f69"];
-  const testColor = planetColors[testIndex % planetColors.length];
+  // Get test color from the test data
+  const testColor = testInfo?.color || "#4f8cff";
+  const planetNumber = testsData.findIndex(t => t.route === testInfo?.route) + 1;
+  // Use modulo for planets beyond #4
+  const planetImageNumber = planetNumber > 4 ? (planetNumber % 4) + 1 : planetNumber;
 
   return (
     <div className="flex h-screen w-full overflow-hidden">
@@ -148,7 +148,7 @@ const TestDescription = () => {
                 {/* Icono central */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <img 
-                    src={`/assets/img/tests/planet${planetNumber}.png`}
+                    src={`/assets/img/tests/planet${planetImageNumber}.png`}
                     alt={testInfo.name}
                     className="w-20 h-20 animate-pulse"
                   />
@@ -230,7 +230,7 @@ const TestDescription = () => {
                   ></div>
                   <div className="w-24 h-24 rounded-full bg-gradient-to-br from-indigo-500/40 to-purple-600/40 backdrop-blur-md border border-white/10 flex items-center justify-center shadow-lg relative z-10">
                     <img 
-                      src={`/assets/img/tests/planet${planetNumber}.png`}
+                      src={`/assets/img/tests/planet${planetImageNumber}.png`}
                       alt={testInfo.name}
                       className="w-20 h-20"
                     />
@@ -249,9 +249,7 @@ const TestDescription = () => {
                     </svg>
                     {testInfo.questions?.length || 0} preguntas • {Math.ceil((testInfo.questions?.length || 0) * 1.5)} minutos aprox.
                   </div>
-                  <p className="text-gray-300 text-sm">
-                    {testInfo.longDescription || "Embarca en un viaje de autodescubrimiento a través de este test especialmente diseñado para revelar aspectos fundamentales de tu personalidad y vocación."}
-                  </p>
+                  <p className="text-gray-300">{testInfo.description}</p>
                 </div>
               </div>
 
@@ -361,6 +359,27 @@ const TestDescription = () => {
                   </div>
                 </section>
               </div>
+
+              {/* Display dimensions if available */}
+              {testInfo.dimensions && testInfo.dimensions.length > 0 && (
+                <div className="mb-10">
+                  <h2 className="text-xl font-bold text-white mb-4">Dimensiones Evaluadas</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {testInfo.dimensions.map((dimension: string, index: number) => (
+                      <div key={index} className="bg-slate-800/60 rounded-lg p-4 border border-slate-700/50">
+                        <div className="flex items-start">
+                          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500/40 to-purple-600/40 flex items-center justify-center mr-3 text-white font-bold text-sm">
+                            {dimension.substring(0, 1)}
+                          </div>
+                          <div>
+                            <h3 className="text-white font-medium">{dimension}</h3>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               <div className="flex justify-center">
                 <button 

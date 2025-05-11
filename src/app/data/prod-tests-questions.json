@@ -1,0 +1,2855 @@
+{
+  "tests": [
+    {
+      "id": 1,
+      "name": "Test Vocacional SDS (Holland)",
+      "code": "SDS",
+      "description": "Evalúa tus intereses vocacionales según el modelo RIASEC",
+      "route": "/test/vocacional",
+      "dimensions": [
+        "Realista",
+        "Investigativo",
+        "Artístico",
+        "Social",
+        "Emprendedor",
+        "Convencional"
+      ],
+      "questions": [
+        {
+          "id": 1,
+          "text": "¿Te gusta reparar objetos mecánicos o electrónicos?",
+          "dimension": "Realista",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "text": "¿Disfrutas trabajar al aire libre haciendo tareas físicas?",
+          "dimension": "Realista",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "text": "¿Prefieres actividades prácticas a teóricas?",
+          "dimension": "Realista",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "text": "¿Te gustaría operar maquinaria pesada?",
+          "dimension": "Realista",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "text": "¿Te interesa aprender carpintería o electricidad?",
+          "dimension": "Realista",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "text": "¿Te sentirías cómodo en un taller mecánico?",
+          "dimension": "Realista",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "text": "¿Disfrutas usar herramientas manuales?",
+          "dimension": "Realista",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "text": "¿Prefieres armar cosas con tus manos?",
+          "dimension": "Realista",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "text": "¿Te sientes atraído por trabajos técnicos?",
+          "dimension": "Realista",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "text": "¿Trabajarías en construcción sin problema?",
+          "dimension": "Realista",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "text": "¿Te interesa hacer experimentos científicos?",
+          "dimension": "Investigativo",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "text": "¿Te gusta leer sobre ciencia o tecnología?",
+          "dimension": "Investigativo",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "text": "¿Disfrutas resolver problemas matemáticos?",
+          "dimension": "Investigativo",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "text": "¿Te llama la atención investigar fenómenos naturales?",
+          "dimension": "Investigativo",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "text": "¿Prefieres entender cómo funcionan las cosas?",
+          "dimension": "Investigativo",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "text": "¿Te atraen carreras como medicina o ingeniería?",
+          "dimension": "Investigativo",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "text": "¿Te gustaría trabajar en un laboratorio?",
+          "dimension": "Investigativo",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 18,
+          "text": "¿Sientes curiosidad por lo desconocido?",
+          "dimension": "Investigativo",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "text": "¿Te gusta formular hipótesis?",
+          "dimension": "Investigativo",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "text": "¿Te interesa analizar datos para descubrir patrones?",
+          "dimension": "Investigativo",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 21,
+          "text": "¿Te gusta expresarte a través del arte o la música?",
+          "dimension": "Artístico",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "text": "¿Prefieres trabajos sin una estructura rígida?",
+          "dimension": "Artístico",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 23,
+          "text": "¿Te interesa el diseño gráfico o la moda?",
+          "dimension": "Artístico",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 24,
+          "text": "¿Disfrutas escribir cuentos, poemas o canciones?",
+          "dimension": "Artístico",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 25,
+          "text": "¿Te atraen las disciplinas visuales como la pintura o escultura?",
+          "dimension": "Artístico",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 26,
+          "text": "¿Te sientes cómodo rompiendo reglas creativas?",
+          "dimension": "Artístico",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 27,
+          "text": "¿Te inspira el teatro o la actuación?",
+          "dimension": "Artístico",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 28,
+          "text": "¿Eres imaginativo en tus ideas?",
+          "dimension": "Artístico",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 29,
+          "text": "¿Te interesa la fotografía artística?",
+          "dimension": "Artístico",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 30,
+          "text": "¿Te gustaría trabajar en la industria del cine o TV?",
+          "dimension": "Artístico",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 31,
+          "text": "¿Te gusta ayudar a otras personas a resolver problemas?",
+          "dimension": "Social",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 32,
+          "text": "¿Disfrutas enseñar o capacitar a otros?",
+          "dimension": "Social",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 33,
+          "text": "¿Te interesa la psicología o el trabajo social?",
+          "dimension": "Social",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 34,
+          "text": "¿Sientes empatía con facilidad?",
+          "dimension": "Social",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 35,
+          "text": "¿Prefieres actividades grupales a individuales?",
+          "dimension": "Social",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 36,
+          "text": "¿Te gustaría trabajar en una ONG o fundación?",
+          "dimension": "Social",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 37,
+          "text": "¿Te motiva colaborar con otras personas?",
+          "dimension": "Social",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 38,
+          "text": "¿Te sientes cómodo hablando con desconocidos?",
+          "dimension": "Social",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 39,
+          "text": "¿Te interesa mejorar la vida de los demás?",
+          "dimension": "Social",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 40,
+          "text": "¿Valoras las relaciones humanas en el trabajo?",
+          "dimension": "Social",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 41,
+          "text": "¿Te gustaría liderar tu propio negocio?",
+          "dimension": "Emprendedor",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 42,
+          "text": "¿Eres persuasivo al presentar tus ideas?",
+          "dimension": "Emprendedor",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 43,
+          "text": "¿Disfrutas asumir riesgos?",
+          "dimension": "Emprendedor",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 44,
+          "text": "¿Te sientes cómodo tomando decisiones importantes?",
+          "dimension": "Emprendedor",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 45,
+          "text": "¿Te atraen las ventas o el marketing?",
+          "dimension": "Emprendedor",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 46,
+          "text": "¿Tienes habilidades para organizar y coordinar personas?",
+          "dimension": "Emprendedor",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 47,
+          "text": "¿Te interesa la política o gestión pública?",
+          "dimension": "Emprendedor",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 48,
+          "text": "¿Te motiva alcanzar metas ambiciosas?",
+          "dimension": "Emprendedor",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 49,
+          "text": "¿Prefieres liderar que seguir instrucciones?",
+          "dimension": "Emprendedor",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 50,
+          "text": "¿Eres una persona competitiva?",
+          "dimension": "Emprendedor",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 51,
+          "text": "¿Prefieres trabajos con reglas claras y procedimientos establecidos?",
+          "dimension": "Convencional",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 52,
+          "text": "¿Te gusta organizar documentos o información?",
+          "dimension": "Convencional",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 53,
+          "text": "¿Te interesa la contabilidad o administración?",
+          "dimension": "Convencional",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 54,
+          "text": "¿Eres detallista con los números?",
+          "dimension": "Convencional",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 55,
+          "text": "¿Disfrutas ordenar y clasificar objetos?",
+          "dimension": "Convencional",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 56,
+          "text": "¿Te sientes cómodo siguiendo instrucciones paso a paso?",
+          "dimension": "Convencional",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 57,
+          "text": "¿Te gustaría trabajar en una oficina?",
+          "dimension": "Convencional",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 58,
+          "text": "¿Eres cuidadoso al archivar o registrar información?",
+          "dimension": "Convencional",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 59,
+          "text": "¿Te interesa la gestión administrativa?",
+          "dimension": "Convencional",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 60,
+          "text": "¿Eres metódico y organizado?",
+          "dimension": "Convencional",
+          "options": [
+            {
+              "label": "Sí",
+              "score": 1
+            },
+            {
+              "label": "No",
+              "score": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Test de Inteligencia General (Raven Adaptado)",
+      "code": "RAVEN",
+      "description": "Evalúa tu razonamiento lógico y capacidad de abstracción",
+      "route": "/test/raven",
+      "dimensions": [
+        "Lógica",
+        "Abstracción"
+      ],
+      "questions": [
+        {
+          "id": 1,
+          "text": "Pregunta visual lógica 1",
+          "dimension": "Lógica",
+          "image": "/images/raven1.png",
+          "options": [
+            {
+              "label": "A",
+              "score": 0
+            },
+            {
+              "label": "B",
+              "score": 1
+            },
+            {
+              "label": "C",
+              "score": 0
+            },
+            {
+              "label": "D",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "text": "Pregunta visual lógica 2",
+          "dimension": "Lógica",
+          "image": "/images/raven2.png",
+          "options": [
+            {
+              "label": "A",
+              "score": 0
+            },
+            {
+              "label": "B",
+              "score": 0
+            },
+            {
+              "label": "C",
+              "score": 0
+            },
+            {
+              "label": "D",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "text": "Pregunta visual lógica 3",
+          "dimension": "Lógica",
+          "image": "/images/raven3.png",
+          "options": [
+            {
+              "label": "A",
+              "score": 0
+            },
+            {
+              "label": "B",
+              "score": 0
+            },
+            {
+              "label": "C",
+              "score": 0
+            },
+            {
+              "label": "D",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "text": "Pregunta visual lógica 4",
+          "dimension": "Lógica",
+          "image": "/images/raven4.png",
+          "options": [
+            {
+              "label": "A",
+              "score": 0
+            },
+            {
+              "label": "B",
+              "score": 0
+            },
+            {
+              "label": "C",
+              "score": 0
+            },
+            {
+              "label": "D",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "text": "Pregunta visual lógica 5",
+          "dimension": "Lógica",
+          "image": "/images/raven5.png",
+          "options": [
+            {
+              "label": "A",
+              "score": 0
+            },
+            {
+              "label": "B",
+              "score": 1
+            },
+            {
+              "label": "C",
+              "score": 0
+            },
+            {
+              "label": "D",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "text": "Pregunta visual lógica 6",
+          "dimension": "Lógica",
+          "image": "/images/raven6.png",
+          "options": [
+            {
+              "label": "A",
+              "score": 0
+            },
+            {
+              "label": "B",
+              "score": 0
+            },
+            {
+              "label": "C",
+              "score": 0
+            },
+            {
+              "label": "D",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "text": "Pregunta visual lógica 7",
+          "dimension": "Lógica",
+          "image": "/images/raven7.png",
+          "options": [
+            {
+              "label": "A",
+              "score": 0
+            },
+            {
+              "label": "B",
+              "score": 0
+            },
+            {
+              "label": "C",
+              "score": 0
+            },
+            {
+              "label": "D",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "text": "Pregunta visual lógica 8",
+          "dimension": "Lógica",
+          "image": "/images/raven8.png",
+          "options": [
+            {
+              "label": "A",
+              "score": 0
+            },
+            {
+              "label": "B",
+              "score": 0
+            },
+            {
+              "label": "C",
+              "score": 0
+            },
+            {
+              "label": "D",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "text": "Pregunta visual lógica 9",
+          "dimension": "Lógica",
+          "image": "/images/raven9.png",
+          "options": [
+            {
+              "label": "A",
+              "score": 0
+            },
+            {
+              "label": "B",
+              "score": 1
+            },
+            {
+              "label": "C",
+              "score": 0
+            },
+            {
+              "label": "D",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "text": "Pregunta visual lógica 10",
+          "dimension": "Lógica",
+          "image": "/images/raven10.png",
+          "options": [
+            {
+              "label": "A",
+              "score": 0
+            },
+            {
+              "label": "B",
+              "score": 0
+            },
+            {
+              "label": "C",
+              "score": 0
+            },
+            {
+              "label": "D",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "text": "Pregunta visual lógica 11",
+          "dimension": "Abstracción",
+          "image": "/images/raven11.png",
+          "options": [
+            {
+              "label": "A",
+              "score": 0
+            },
+            {
+              "label": "B",
+              "score": 0
+            },
+            {
+              "label": "C",
+              "score": 0
+            },
+            {
+              "label": "D",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "text": "Pregunta visual lógica 12",
+          "dimension": "Abstracción",
+          "image": "/images/raven12.png",
+          "options": [
+            {
+              "label": "A",
+              "score": 0
+            },
+            {
+              "label": "B",
+              "score": 0
+            },
+            {
+              "label": "C",
+              "score": 0
+            },
+            {
+              "label": "D",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "text": "Pregunta visual lógica 13",
+          "dimension": "Abstracción",
+          "image": "/images/raven13.png",
+          "options": [
+            {
+              "label": "A",
+              "score": 0
+            },
+            {
+              "label": "B",
+              "score": 1
+            },
+            {
+              "label": "C",
+              "score": 0
+            },
+            {
+              "label": "D",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "text": "Pregunta visual lógica 14",
+          "dimension": "Abstracción",
+          "image": "/images/raven14.png",
+          "options": [
+            {
+              "label": "A",
+              "score": 0
+            },
+            {
+              "label": "B",
+              "score": 0
+            },
+            {
+              "label": "C",
+              "score": 0
+            },
+            {
+              "label": "D",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "text": "Pregunta visual lógica 15",
+          "dimension": "Abstracción",
+          "image": "/images/raven15.png",
+          "options": [
+            {
+              "label": "A",
+              "score": 0
+            },
+            {
+              "label": "B",
+              "score": 0
+            },
+            {
+              "label": "C",
+              "score": 0
+            },
+            {
+              "label": "D",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "text": "Pregunta visual lógica 16",
+          "dimension": "Abstracción",
+          "image": "/images/raven16.png",
+          "options": [
+            {
+              "label": "A",
+              "score": 0
+            },
+            {
+              "label": "B",
+              "score": 0
+            },
+            {
+              "label": "C",
+              "score": 0
+            },
+            {
+              "label": "D",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "text": "Pregunta visual lógica 17",
+          "dimension": "Abstracción",
+          "image": "/images/raven17.png",
+          "options": [
+            {
+              "label": "A",
+              "score": 0
+            },
+            {
+              "label": "B",
+              "score": 1
+            },
+            {
+              "label": "C",
+              "score": 0
+            },
+            {
+              "label": "D",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 18,
+          "text": "Pregunta visual lógica 18",
+          "dimension": "Abstracción",
+          "image": "/images/raven18.png",
+          "options": [
+            {
+              "label": "A",
+              "score": 0
+            },
+            {
+              "label": "B",
+              "score": 0
+            },
+            {
+              "label": "C",
+              "score": 0
+            },
+            {
+              "label": "D",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "text": "Pregunta visual lógica 19",
+          "dimension": "Abstracción",
+          "image": "/images/raven19.png",
+          "options": [
+            {
+              "label": "A",
+              "score": 0
+            },
+            {
+              "label": "B",
+              "score": 0
+            },
+            {
+              "label": "C",
+              "score": 0
+            },
+            {
+              "label": "D",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "text": "Pregunta visual lógica 20",
+          "dimension": "Abstracción",
+          "image": "/images/raven20.png",
+          "options": [
+            {
+              "label": "A",
+              "score": 0
+            },
+            {
+              "label": "B",
+              "score": 0
+            },
+            {
+              "label": "C",
+              "score": 0
+            },
+            {
+              "label": "D",
+              "score": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Test de Inteligencia Emocional (ICE de Bar-On)",
+      "code": "ICE",
+      "description": "Evalúa tu inteligencia emocional: manejo de emociones, empatía y autoconciencia",
+      "route": "/test/inteligencia-emocional",
+      "dimensions": [
+        "Intrapersonal",
+        "Interpersonal",
+        "Adaptabilidad",
+        "Manejo del Estrés",
+        "Estado de Ánimo"
+      ],
+      "questions": [
+        {
+          "id": 1,
+          "text": "Pregunta sobre Intrapersonal",
+          "dimension": "Intrapersonal",
+          "options": [
+            {
+              "label": "Siempre",
+              "score": 4
+            },
+            {
+              "label": "Frecuentemente",
+              "score": 3
+            },
+            {
+              "label": "A veces",
+              "score": 2
+            },
+            {
+              "label": "Raramente",
+              "score": 1
+            },
+            {
+              "label": "Nunca",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "text": "Pregunta sobre Intrapersonal",
+          "dimension": "Intrapersonal",
+          "options": [
+            {
+              "label": "Siempre",
+              "score": 4
+            },
+            {
+              "label": "Frecuentemente",
+              "score": 3
+            },
+            {
+              "label": "A veces",
+              "score": 2
+            },
+            {
+              "label": "Raramente",
+              "score": 1
+            },
+            {
+              "label": "Nunca",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "text": "Pregunta sobre Intrapersonal",
+          "dimension": "Intrapersonal",
+          "options": [
+            {
+              "label": "Siempre",
+              "score": 4
+            },
+            {
+              "label": "Frecuentemente",
+              "score": 3
+            },
+            {
+              "label": "A veces",
+              "score": 2
+            },
+            {
+              "label": "Raramente",
+              "score": 1
+            },
+            {
+              "label": "Nunca",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "text": "Pregunta sobre Intrapersonal",
+          "dimension": "Intrapersonal",
+          "options": [
+            {
+              "label": "Siempre",
+              "score": 4
+            },
+            {
+              "label": "Frecuentemente",
+              "score": 3
+            },
+            {
+              "label": "A veces",
+              "score": 2
+            },
+            {
+              "label": "Raramente",
+              "score": 1
+            },
+            {
+              "label": "Nunca",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "text": "Pregunta sobre Intrapersonal",
+          "dimension": "Intrapersonal",
+          "options": [
+            {
+              "label": "Siempre",
+              "score": 4
+            },
+            {
+              "label": "Frecuentemente",
+              "score": 3
+            },
+            {
+              "label": "A veces",
+              "score": 2
+            },
+            {
+              "label": "Raramente",
+              "score": 1
+            },
+            {
+              "label": "Nunca",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "text": "Pregunta sobre Intrapersonal",
+          "dimension": "Intrapersonal",
+          "options": [
+            {
+              "label": "Siempre",
+              "score": 4
+            },
+            {
+              "label": "Frecuentemente",
+              "score": 3
+            },
+            {
+              "label": "A veces",
+              "score": 2
+            },
+            {
+              "label": "Raramente",
+              "score": 1
+            },
+            {
+              "label": "Nunca",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "text": "Pregunta sobre Interpersonal",
+          "dimension": "Interpersonal",
+          "options": [
+            {
+              "label": "Siempre",
+              "score": 4
+            },
+            {
+              "label": "Frecuentemente",
+              "score": 3
+            },
+            {
+              "label": "A veces",
+              "score": 2
+            },
+            {
+              "label": "Raramente",
+              "score": 1
+            },
+            {
+              "label": "Nunca",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "text": "Pregunta sobre Interpersonal",
+          "dimension": "Interpersonal",
+          "options": [
+            {
+              "label": "Siempre",
+              "score": 4
+            },
+            {
+              "label": "Frecuentemente",
+              "score": 3
+            },
+            {
+              "label": "A veces",
+              "score": 2
+            },
+            {
+              "label": "Raramente",
+              "score": 1
+            },
+            {
+              "label": "Nunca",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "text": "Pregunta sobre Interpersonal",
+          "dimension": "Interpersonal",
+          "options": [
+            {
+              "label": "Siempre",
+              "score": 4
+            },
+            {
+              "label": "Frecuentemente",
+              "score": 3
+            },
+            {
+              "label": "A veces",
+              "score": 2
+            },
+            {
+              "label": "Raramente",
+              "score": 1
+            },
+            {
+              "label": "Nunca",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "text": "Pregunta sobre Interpersonal",
+          "dimension": "Interpersonal",
+          "options": [
+            {
+              "label": "Siempre",
+              "score": 4
+            },
+            {
+              "label": "Frecuentemente",
+              "score": 3
+            },
+            {
+              "label": "A veces",
+              "score": 2
+            },
+            {
+              "label": "Raramente",
+              "score": 1
+            },
+            {
+              "label": "Nunca",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "text": "Pregunta sobre Interpersonal",
+          "dimension": "Interpersonal",
+          "options": [
+            {
+              "label": "Siempre",
+              "score": 4
+            },
+            {
+              "label": "Frecuentemente",
+              "score": 3
+            },
+            {
+              "label": "A veces",
+              "score": 2
+            },
+            {
+              "label": "Raramente",
+              "score": 1
+            },
+            {
+              "label": "Nunca",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "text": "Pregunta sobre Interpersonal",
+          "dimension": "Interpersonal",
+          "options": [
+            {
+              "label": "Siempre",
+              "score": 4
+            },
+            {
+              "label": "Frecuentemente",
+              "score": 3
+            },
+            {
+              "label": "A veces",
+              "score": 2
+            },
+            {
+              "label": "Raramente",
+              "score": 1
+            },
+            {
+              "label": "Nunca",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "text": "Pregunta sobre Adaptabilidad",
+          "dimension": "Adaptabilidad",
+          "options": [
+            {
+              "label": "Siempre",
+              "score": 4
+            },
+            {
+              "label": "Frecuentemente",
+              "score": 3
+            },
+            {
+              "label": "A veces",
+              "score": 2
+            },
+            {
+              "label": "Raramente",
+              "score": 1
+            },
+            {
+              "label": "Nunca",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "text": "Pregunta sobre Adaptabilidad",
+          "dimension": "Adaptabilidad",
+          "options": [
+            {
+              "label": "Siempre",
+              "score": 4
+            },
+            {
+              "label": "Frecuentemente",
+              "score": 3
+            },
+            {
+              "label": "A veces",
+              "score": 2
+            },
+            {
+              "label": "Raramente",
+              "score": 1
+            },
+            {
+              "label": "Nunca",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "text": "Pregunta sobre Adaptabilidad",
+          "dimension": "Adaptabilidad",
+          "options": [
+            {
+              "label": "Siempre",
+              "score": 4
+            },
+            {
+              "label": "Frecuentemente",
+              "score": 3
+            },
+            {
+              "label": "A veces",
+              "score": 2
+            },
+            {
+              "label": "Raramente",
+              "score": 1
+            },
+            {
+              "label": "Nunca",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "text": "Pregunta sobre Adaptabilidad",
+          "dimension": "Adaptabilidad",
+          "options": [
+            {
+              "label": "Siempre",
+              "score": 4
+            },
+            {
+              "label": "Frecuentemente",
+              "score": 3
+            },
+            {
+              "label": "A veces",
+              "score": 2
+            },
+            {
+              "label": "Raramente",
+              "score": 1
+            },
+            {
+              "label": "Nunca",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "text": "Pregunta sobre Adaptabilidad",
+          "dimension": "Adaptabilidad",
+          "options": [
+            {
+              "label": "Siempre",
+              "score": 4
+            },
+            {
+              "label": "Frecuentemente",
+              "score": 3
+            },
+            {
+              "label": "A veces",
+              "score": 2
+            },
+            {
+              "label": "Raramente",
+              "score": 1
+            },
+            {
+              "label": "Nunca",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 18,
+          "text": "Pregunta sobre Adaptabilidad",
+          "dimension": "Adaptabilidad",
+          "options": [
+            {
+              "label": "Siempre",
+              "score": 4
+            },
+            {
+              "label": "Frecuentemente",
+              "score": 3
+            },
+            {
+              "label": "A veces",
+              "score": 2
+            },
+            {
+              "label": "Raramente",
+              "score": 1
+            },
+            {
+              "label": "Nunca",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "text": "Pregunta sobre Manejo del Estrés",
+          "dimension": "Manejo del Estrés",
+          "options": [
+            {
+              "label": "Siempre",
+              "score": 4
+            },
+            {
+              "label": "Frecuentemente",
+              "score": 3
+            },
+            {
+              "label": "A veces",
+              "score": 2
+            },
+            {
+              "label": "Raramente",
+              "score": 1
+            },
+            {
+              "label": "Nunca",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "text": "Pregunta sobre Manejo del Estrés",
+          "dimension": "Manejo del Estrés",
+          "options": [
+            {
+              "label": "Siempre",
+              "score": 4
+            },
+            {
+              "label": "Frecuentemente",
+              "score": 3
+            },
+            {
+              "label": "A veces",
+              "score": 2
+            },
+            {
+              "label": "Raramente",
+              "score": 1
+            },
+            {
+              "label": "Nunca",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 21,
+          "text": "Pregunta sobre Manejo del Estrés",
+          "dimension": "Manejo del Estrés",
+          "options": [
+            {
+              "label": "Siempre",
+              "score": 4
+            },
+            {
+              "label": "Frecuentemente",
+              "score": 3
+            },
+            {
+              "label": "A veces",
+              "score": 2
+            },
+            {
+              "label": "Raramente",
+              "score": 1
+            },
+            {
+              "label": "Nunca",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "text": "Pregunta sobre Manejo del Estrés",
+          "dimension": "Manejo del Estrés",
+          "options": [
+            {
+              "label": "Siempre",
+              "score": 4
+            },
+            {
+              "label": "Frecuentemente",
+              "score": 3
+            },
+            {
+              "label": "A veces",
+              "score": 2
+            },
+            {
+              "label": "Raramente",
+              "score": 1
+            },
+            {
+              "label": "Nunca",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 23,
+          "text": "Pregunta sobre Manejo del Estrés",
+          "dimension": "Manejo del Estrés",
+          "options": [
+            {
+              "label": "Siempre",
+              "score": 4
+            },
+            {
+              "label": "Frecuentemente",
+              "score": 3
+            },
+            {
+              "label": "A veces",
+              "score": 2
+            },
+            {
+              "label": "Raramente",
+              "score": 1
+            },
+            {
+              "label": "Nunca",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 24,
+          "text": "Pregunta sobre Manejo del Estrés",
+          "dimension": "Manejo del Estrés",
+          "options": [
+            {
+              "label": "Siempre",
+              "score": 4
+            },
+            {
+              "label": "Frecuentemente",
+              "score": 3
+            },
+            {
+              "label": "A veces",
+              "score": 2
+            },
+            {
+              "label": "Raramente",
+              "score": 1
+            },
+            {
+              "label": "Nunca",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 25,
+          "text": "Pregunta sobre Estado de Ánimo",
+          "dimension": "Estado de Ánimo",
+          "options": [
+            {
+              "label": "Siempre",
+              "score": 4
+            },
+            {
+              "label": "Frecuentemente",
+              "score": 3
+            },
+            {
+              "label": "A veces",
+              "score": 2
+            },
+            {
+              "label": "Raramente",
+              "score": 1
+            },
+            {
+              "label": "Nunca",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 26,
+          "text": "Pregunta sobre Estado de Ánimo",
+          "dimension": "Estado de Ánimo",
+          "options": [
+            {
+              "label": "Siempre",
+              "score": 4
+            },
+            {
+              "label": "Frecuentemente",
+              "score": 3
+            },
+            {
+              "label": "A veces",
+              "score": 2
+            },
+            {
+              "label": "Raramente",
+              "score": 1
+            },
+            {
+              "label": "Nunca",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 27,
+          "text": "Pregunta sobre Estado de Ánimo",
+          "dimension": "Estado de Ánimo",
+          "options": [
+            {
+              "label": "Siempre",
+              "score": 4
+            },
+            {
+              "label": "Frecuentemente",
+              "score": 3
+            },
+            {
+              "label": "A veces",
+              "score": 2
+            },
+            {
+              "label": "Raramente",
+              "score": 1
+            },
+            {
+              "label": "Nunca",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 28,
+          "text": "Pregunta sobre Estado de Ánimo",
+          "dimension": "Estado de Ánimo",
+          "options": [
+            {
+              "label": "Siempre",
+              "score": 4
+            },
+            {
+              "label": "Frecuentemente",
+              "score": 3
+            },
+            {
+              "label": "A veces",
+              "score": 2
+            },
+            {
+              "label": "Raramente",
+              "score": 1
+            },
+            {
+              "label": "Nunca",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 29,
+          "text": "Pregunta sobre Estado de Ánimo",
+          "dimension": "Estado de Ánimo",
+          "options": [
+            {
+              "label": "Siempre",
+              "score": 4
+            },
+            {
+              "label": "Frecuentemente",
+              "score": 3
+            },
+            {
+              "label": "A veces",
+              "score": 2
+            },
+            {
+              "label": "Raramente",
+              "score": 1
+            },
+            {
+              "label": "Nunca",
+              "score": 0
+            }
+          ]
+        },
+        {
+          "id": 30,
+          "text": "Pregunta sobre Estado de Ánimo",
+          "dimension": "Estado de Ánimo",
+          "options": [
+            {
+              "label": "Siempre",
+              "score": 4
+            },
+            {
+              "label": "Frecuentemente",
+              "score": 3
+            },
+            {
+              "label": "A veces",
+              "score": 2
+            },
+            {
+              "label": "Raramente",
+              "score": 1
+            },
+            {
+              "label": "Nunca",
+              "score": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Test de Personalidad MBTI",
+      "code": "MBTI",
+      "description": "Descubre tu tipo de personalidad basado en 4 dimensiones",
+      "route": "/test/personalidad",
+      "dimensions": [
+        "I-E",
+        "S-N",
+        "T-F",
+        "J-P"
+      ],
+      "questions": [
+        {
+          "id": 1,
+          "text": "Pregunta de I-E",
+          "dimension": "I-E",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "I"
+            },
+            {
+              "label": "No",
+              "score": "E"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "text": "Pregunta de I-E",
+          "dimension": "I-E",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "I"
+            },
+            {
+              "label": "No",
+              "score": "E"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "text": "Pregunta de I-E",
+          "dimension": "I-E",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "I"
+            },
+            {
+              "label": "No",
+              "score": "E"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "text": "Pregunta de I-E",
+          "dimension": "I-E",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "I"
+            },
+            {
+              "label": "No",
+              "score": "E"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "text": "Pregunta de I-E",
+          "dimension": "I-E",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "I"
+            },
+            {
+              "label": "No",
+              "score": "E"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "text": "Pregunta de I-E",
+          "dimension": "I-E",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "I"
+            },
+            {
+              "label": "No",
+              "score": "E"
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "text": "Pregunta de I-E",
+          "dimension": "I-E",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "I"
+            },
+            {
+              "label": "No",
+              "score": "E"
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "text": "Pregunta de I-E",
+          "dimension": "I-E",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "I"
+            },
+            {
+              "label": "No",
+              "score": "E"
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "text": "Pregunta de I-E",
+          "dimension": "I-E",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "I"
+            },
+            {
+              "label": "No",
+              "score": "E"
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "text": "Pregunta de I-E",
+          "dimension": "I-E",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "I"
+            },
+            {
+              "label": "No",
+              "score": "E"
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "text": "Pregunta de S-N",
+          "dimension": "S-N",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "S"
+            },
+            {
+              "label": "No",
+              "score": "N"
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "text": "Pregunta de S-N",
+          "dimension": "S-N",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "S"
+            },
+            {
+              "label": "No",
+              "score": "N"
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "text": "Pregunta de S-N",
+          "dimension": "S-N",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "S"
+            },
+            {
+              "label": "No",
+              "score": "N"
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "text": "Pregunta de S-N",
+          "dimension": "S-N",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "S"
+            },
+            {
+              "label": "No",
+              "score": "N"
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "text": "Pregunta de S-N",
+          "dimension": "S-N",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "S"
+            },
+            {
+              "label": "No",
+              "score": "N"
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "text": "Pregunta de S-N",
+          "dimension": "S-N",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "S"
+            },
+            {
+              "label": "No",
+              "score": "N"
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "text": "Pregunta de S-N",
+          "dimension": "S-N",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "S"
+            },
+            {
+              "label": "No",
+              "score": "N"
+            }
+          ]
+        },
+        {
+          "id": 18,
+          "text": "Pregunta de S-N",
+          "dimension": "S-N",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "S"
+            },
+            {
+              "label": "No",
+              "score": "N"
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "text": "Pregunta de S-N",
+          "dimension": "S-N",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "S"
+            },
+            {
+              "label": "No",
+              "score": "N"
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "text": "Pregunta de S-N",
+          "dimension": "S-N",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "S"
+            },
+            {
+              "label": "No",
+              "score": "N"
+            }
+          ]
+        },
+        {
+          "id": 21,
+          "text": "Pregunta de T-F",
+          "dimension": "T-F",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "T"
+            },
+            {
+              "label": "No",
+              "score": "F"
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "text": "Pregunta de T-F",
+          "dimension": "T-F",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "T"
+            },
+            {
+              "label": "No",
+              "score": "F"
+            }
+          ]
+        },
+        {
+          "id": 23,
+          "text": "Pregunta de T-F",
+          "dimension": "T-F",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "T"
+            },
+            {
+              "label": "No",
+              "score": "F"
+            }
+          ]
+        },
+        {
+          "id": 24,
+          "text": "Pregunta de T-F",
+          "dimension": "T-F",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "T"
+            },
+            {
+              "label": "No",
+              "score": "F"
+            }
+          ]
+        },
+        {
+          "id": 25,
+          "text": "Pregunta de T-F",
+          "dimension": "T-F",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "T"
+            },
+            {
+              "label": "No",
+              "score": "F"
+            }
+          ]
+        },
+        {
+          "id": 26,
+          "text": "Pregunta de T-F",
+          "dimension": "T-F",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "T"
+            },
+            {
+              "label": "No",
+              "score": "F"
+            }
+          ]
+        },
+        {
+          "id": 27,
+          "text": "Pregunta de T-F",
+          "dimension": "T-F",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "T"
+            },
+            {
+              "label": "No",
+              "score": "F"
+            }
+          ]
+        },
+        {
+          "id": 28,
+          "text": "Pregunta de T-F",
+          "dimension": "T-F",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "T"
+            },
+            {
+              "label": "No",
+              "score": "F"
+            }
+          ]
+        },
+        {
+          "id": 29,
+          "text": "Pregunta de T-F",
+          "dimension": "T-F",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "T"
+            },
+            {
+              "label": "No",
+              "score": "F"
+            }
+          ]
+        },
+        {
+          "id": 30,
+          "text": "Pregunta de T-F",
+          "dimension": "T-F",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "T"
+            },
+            {
+              "label": "No",
+              "score": "F"
+            }
+          ]
+        },
+        {
+          "id": 31,
+          "text": "Pregunta de J-P",
+          "dimension": "J-P",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "J"
+            },
+            {
+              "label": "No",
+              "score": "P"
+            }
+          ]
+        },
+        {
+          "id": 32,
+          "text": "Pregunta de J-P",
+          "dimension": "J-P",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "J"
+            },
+            {
+              "label": "No",
+              "score": "P"
+            }
+          ]
+        },
+        {
+          "id": 33,
+          "text": "Pregunta de J-P",
+          "dimension": "J-P",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "J"
+            },
+            {
+              "label": "No",
+              "score": "P"
+            }
+          ]
+        },
+        {
+          "id": 34,
+          "text": "Pregunta de J-P",
+          "dimension": "J-P",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "J"
+            },
+            {
+              "label": "No",
+              "score": "P"
+            }
+          ]
+        },
+        {
+          "id": 35,
+          "text": "Pregunta de J-P",
+          "dimension": "J-P",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "J"
+            },
+            {
+              "label": "No",
+              "score": "P"
+            }
+          ]
+        },
+        {
+          "id": 36,
+          "text": "Pregunta de J-P",
+          "dimension": "J-P",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "J"
+            },
+            {
+              "label": "No",
+              "score": "P"
+            }
+          ]
+        },
+        {
+          "id": 37,
+          "text": "Pregunta de J-P",
+          "dimension": "J-P",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "J"
+            },
+            {
+              "label": "No",
+              "score": "P"
+            }
+          ]
+        },
+        {
+          "id": 38,
+          "text": "Pregunta de J-P",
+          "dimension": "J-P",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "J"
+            },
+            {
+              "label": "No",
+              "score": "P"
+            }
+          ]
+        },
+        {
+          "id": 39,
+          "text": "Pregunta de J-P",
+          "dimension": "J-P",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "J"
+            },
+            {
+              "label": "No",
+              "score": "P"
+            }
+          ]
+        },
+        {
+          "id": 40,
+          "text": "Pregunta de J-P",
+          "dimension": "J-P",
+          "options": [
+            {
+              "label": "Sí",
+              "score": "J"
+            },
+            {
+              "label": "No",
+              "score": "P"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

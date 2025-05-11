@@ -6,7 +6,6 @@ const Profile = () => {
   // Mock user data
   const user = {
     name: "Explorador Espacial",
-    avatar: "/assets/img/tests/avatar.png",
     level: 3,
     progress: 65,
     completedTests: 2,
@@ -30,11 +29,18 @@ const Profile = () => {
             <div className="w-32 h-32 relative mb-4">
               <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/30 to-purple-500/30 animate-pulse"></div>
               <div className="w-32 h-32 rounded-full bg-slate-800 flex items-center justify-center overflow-hidden relative z-10 border-2 border-blue-500/50">
-                <img 
-                  src={user.avatar} 
-                  alt={user.name}
-                  className="w-28 h-28 object-cover"
-                />
+                <div className="w-28 h-28 rounded-full flex items-center justify-center bg-gradient-to-r from-indigo-600 to-purple-600">
+                  <div className="text-white text-4xl font-bold">
+                    {user.name.substring(0, 1)}
+                  </div>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-12 h-12 flex items-center justify-center">
+                      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10 opacity-40">
+                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <h2 className="text-xl font-medium text-white text-center">{user.name}</h2>

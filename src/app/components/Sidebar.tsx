@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 interface SidebarProps {
   activeSection: string;
@@ -24,8 +25,14 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSection, setActiveSection }) =>
       {/* Header */}
       <div className="p-6 border-b border-indigo-500/20">
         <Link href="/dashboard" className="flex items-center">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center mr-3">
-            <span className="text-white text-xl">🌠</span>
+          <div className="w-10 h-10 rounded-full flex items-center justify-center mr-3 overflow-hidden">
+            <Image 
+              src="/assets/órbita.svg" 
+              alt="Órbita Logo" 
+              width={40} 
+              height={40} 
+              className="object-contain"
+            />
           </div>
           <div>
             <h1 className="text-white font-bold text-lg">VocaSpacio</h1>

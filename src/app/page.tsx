@@ -4,13 +4,17 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
-  faArrowRight, faFileAlt, faVideo, faCrown, faUser, faSignOutAlt, 
+  faArrowRight, faFileAlt, faVideo, faCrown, faSignOutAlt, 
   faHome, faRoad, faCompass, faGraduationCap, faUserMd, faBars, faTimes,
   faChevronDown, faChevronRight, faCheck, faCalendarAlt, faCircleNotch,
   faChevronLeft
 } from '@fortawesome/free-solid-svg-icons';
-import SolarSystem from './components/SolarSystem';
+import Image from 'next/image';
+import testsData, { Test } from './data/tests-data';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+// @ts-expect-error - El componente existe pero no encuentra las declaraciones de tipo
+import TestComponent from './components/TestComponent';
+import TestsGrid from './components/TestsGrid';
 
 // Definir la interfaz para los elementos del menú con submenús
 interface MenuItem {
@@ -32,14 +36,18 @@ export default function Home() {
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [showingSolarSystem, setShowingSolarSystem] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [activeTest, setActiveTest] = useState<Test | null>(null);
+  const [showTestInterface, setShowTestInterface] = useState(false);
 
-  // Lista de tests disponibles con progreso
-  const tests = [
-    { id: 'vocational', name: 'Descubre tu vocación', status: 'pendiente', progress: 20, icon: faCompass, desc: 'Explora qué te apasiona y hacia dónde te diriges' },
-    { id: 'personality', name: 'Conoce tu personalidad', status: 'pendiente', progress: 10, icon: faUser, desc: 'Descubre cómo tu forma de ser influye en tu futuro' },
-    { id: 'aptitude', name: 'Tus talentos únicos', status: 'pendiente', progress: 0, icon: faGraduationCap, desc: 'Identifica tus habilidades naturales y potencial' },
-    { id: 'values', name: 'Lo que realmente valoras', status: 'pendiente', progress: 5, icon: faFileAlt, desc: 'Explora qué es lo que más importa en tu vida profesional' }
-  ];
+  // Use the testsData from our imported module
+  const tests = testsData.map(test => ({
+    id: test.route,
+    name: test.name,
+    status: 'pendiente',
+    progress: 0, // Start with no progress for new tests
+    icon: faCompass,
+    desc: test.description
+  }));
   
   // Calcular el progreso total basado en el avance de cada test
   const calculateTotalProgress = () => {
@@ -133,13 +141,6 @@ export default function Home() {
         }, 500);
       }, 300);
     }, 2000);
-  };
-  
-  // Manejador para tests del SolarSystem
-  const handleStartTest = () => {
-    // En una aplicación real, aquí navegaríamos a la ruta del test
-    // Por ahora, mostraremos el mismo efecto de portal espacial
-    handleStartNowClick();
   };
 
   const toggleMenu = () => {
@@ -346,20 +347,46 @@ export default function Home() {
       );
     } else if (activeSection === 'tests') {
       return (
-        <div className="space-y-4">
-          <div className="bg-gray-800/80 backdrop-blur-sm rounded-xl border border-gray-700/80 p-5 mb-6">
-            <h2 className="text-xl font-bold mb-2">Tests Vocacionales</h2>
-            <p className="text-gray-400">
-              Descubre tus aptitudes, intereses y valores profesionales a través de nuestros tests especializados.
-              Cada test te acercará un paso más a tu vocación ideal.
-            </p>
+        <div className="space-y-8">            
+            
+            {showTestInterface && activeTest ? (
+              <div className="mt-4">
+                <TestComponent test={activeTest} onComplete={() => {
+                  setShowTestInterface(false);
+                  setActiveTest(null);
+                  // Refresh to show updated results
+                  router.refresh();
+                }} />
+              </div>
+            ) : (
+              <TestsGrid 
+                onSelectTest={(test) => {
+                  setIsLoading(true);
+                  setLoadingProgress(0);
+                  
+                  // Simulate loading
+                  const interval = setInterval(() => {
+                    setLoadingProgress(prev => {
+                      const next = prev + Math.random() * 5;
+                      return next > 100 ? 100 : next;
+                    });
+                  }, 50);
+                  
+                  // After loading completes
+                  setTimeout(() => {
+                    clearInterval(interval);
+                    setLoadingProgress(100);
+                    
+                    setTimeout(() => {
+                      setActiveTest(test);
+                      setShowTestInterface(true);
+                      setIsLoading(false);
+                    }, 500);
+                  }, 1500);
+                }} 
+              />
+            )}
           </div>
-          
-          {/* Integración del componente SolarSystem para visualizar los tests como planetas */}
-          <div className="h-[calc(100vh-300px)] max-h-[600px] max-w-[900px] mx-auto flex items-center justify-center">
-            <SolarSystem onLearnMore={handleStartTest} />
-          </div>
-        </div>
       );
     }
     
@@ -453,22 +480,33 @@ export default function Home() {
         `}>
           <div className="flex flex-col h-full">
             {/* Logo y branding */}
-            <div className="p-3 border-b border-gray-800">
-              <div className="flex items-center justify-between">
+            <div className="p-4 border-b border-gray-800 flex flex-col items-center md:items-start">
+              <div className="flex items-center">
                 {!sidebarCollapsed && (
-                  <>
-                    <div className="text-base font-bold">Estelar</div>
-                  </>
+                  <div className="flex items-center">
+                    <div className="flex items-center justify-center mr-2 border-indigo-500/30">
+                      <Image 
+                        src="/assets/orbita.png" 
+                        alt="Órbita Logo" 
+                        width={100} 
+                        height={100}                        
+                        className="object-contain"
+                      />
+                    </div>
+                  </div>
                 )}
                 {sidebarCollapsed && (
-                  <div className="w-full flex justify-center">
-                    <div className="text-base font-bold">E</div>
+                  <div className="flex items-center justify-center border-indigo-500/30">
+                    <Image 
+                      src="/assets/logo.png" 
+                      alt="Órbita Logo" 
+                      width={20} 
+                      height={20}
+                      className="object-contain" 
+                    />
                   </div>
                 )}
               </div>
-              {!sidebarCollapsed && (
-                <div className="text-[10px] text-gray-400 mt-0.5">Descubre lo que te hace único</div>
-              )}
             </div>
             
             {/* Perfil del usuario */}
@@ -604,8 +642,36 @@ export default function Home() {
             
             {/* Header de la página */}
             <div className="relative z-10 mb-6">
-              <h1 className="text-2xl md:text-3xl font-bold">Hola {userName}, ¡bienvenido de vuelta!</h1>
-              <p className="text-gray-400">Continuemos tu viaje de autodescubrimiento</p>
+              {activeSection === 'home' ? (
+                <>
+                  <h1 className="text-2xl md:text-3xl font-bold">Hola {userName}, ¡bienvenido de vuelta!</h1>
+                  <p className="text-gray-400">Continuemos tu viaje de autodescubrimiento</p>
+                </>
+              ) : (
+                <>
+                  <h1 className="text-2xl md:text-3xl font-bold">
+                    {menuItems.find(item => item.id === activeSection)?.label || 'Exploración Vocacional'}
+                  </h1>
+                  {activeSection === 'tests' && (
+                    <p className="text-blue-400 mt-1">Descubre tus aptitudes e intereses a través de nuestros tests</p>
+                  )}
+                  {activeSection === 'progress' && (
+                    <p className="text-green-400 mt-1">Visualiza tu avance en el proceso de orientación</p>
+                  )}
+                  {activeSection === 'recommendations' && (
+                    <p className="text-purple-400 mt-1">Explora carreras y opciones que se ajustan a tu perfil</p>
+                  )}
+                  {activeSection === 'capsules' && (
+                    <p className="text-amber-400 mt-1">Contenido educativo para ampliar tu visión vocacional</p>
+                  )}
+                  {activeSection === 'counseling' && (
+                    <p className="text-cyan-400 mt-1">Conecta con asesores expertos en orientación</p>
+                  )}
+                  {activeSection === 'premium' && (
+                    <p className="text-amber-300 mt-1">Accede a funciones exclusivas para potenciar tu desarrollo</p>
+                  )}
+                </>
+              )}
             </div>
             
             {/* Contenido del dashboard - Se renderizará según la sección activa */}

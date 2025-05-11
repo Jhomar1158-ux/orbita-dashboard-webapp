@@ -1,46 +1,87 @@
 'use client';
 
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import testData from '../../data/test-questions.json';
+import testsData from '../../data/tests-data';
 
 export default function TestPage() {
   const params = useParams();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [current, setCurrent] = useState(0);
   const [test, setTest] = useState<any>(null);
-  const [answers, setAnswers] = useState<(string | null)[]>([]);
+  const [answers, setAnswers] = useState<any[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [loadingProgress, setLoadingProgress] = useState(0);
+  const [dimensionScores, setDimensionScores] = useState<Record<string, number>>({});
+  const [loading, setLoading] = useState(true);
+  
+  // Check if we're coming from the description page with a direct transition
+  const skipLoader = searchParams.get('skipLoader') === 'true';
 
-  // Resultados predefinidos basados en el tipo de test
-  const getTestResults = (testId: string, answers: (string | null)[]) => {
-    // Ejemplo de resultados para cada test
-    if (testId === 'personal-values') {
-      return {
-        autenticidad: 85,
-        logro: 70,
-        seguridad: 60,
-        estimulacion: 75,
-      };
+  useEffect(() => {
+    const currentTest = testsData.find(t => t.route === params.test);
+    if (currentTest) {
+      setTest(currentTest);
+      setAnswers(Array(currentTest.questions.length).fill(null));
+      
+      // Initialize dimension scores if the test has dimensions
+      if (currentTest.dimensions) {
+        const initialScores: Record<string, number> = {};
+        currentTest.dimensions.forEach((dimension: string) => {
+          initialScores[dimension] = 0;
+        });
+        setDimensionScores(initialScores);
+      }
+      
+      // Skip the loading screen if we're coming from the description page
+      if (skipLoader) {
+        setLoading(false);
+      } else {
+        // Otherwise show a brief loading screen
+        setTimeout(() => {
+          setLoading(false);
+        }, 800); // Short loading time
+      }
     }
-    else if (testId === 'future-vision') {
-      return {
-        innovador: 78,
-        lider: 82,
-        analitico: 65,
-        humanitario: 70,
-      };
+  }, [params.test, skipLoader]);
+
+  const calculateResults = (test: any, answers: any[]) => {
+    // For tests with dimensions, calculate scores per dimension
+    if (test.dimensions) {
+      const results: Record<string, number> = { ...dimensionScores };
+      
+      // Sum scores for each answered question
+      answers.forEach((answer, index) => {
+        if (answer !== null) {
+          const question = test.questions[index];
+          const dimension = question.dimension;
+          const selectedOption = question.options.find((opt: any) => opt.label === answer.label);
+          
+          if (dimension && selectedOption && selectedOption.score !== undefined) {
+            results[dimension] = (results[dimension] || 0) + selectedOption.score;
+          }
+        }
+      });
+      
+      // Calculate percentage scores (assuming max score = number of questions per dimension)
+      const dimensionQuestionCounts: Record<string, number> = {};
+      test.questions.forEach((q: any) => {
+        if (q.dimension) {
+          dimensionQuestionCounts[q.dimension] = (dimensionQuestionCounts[q.dimension] || 0) + 1;
+        }
+      });
+      
+      // Convert to percentages
+      Object.keys(results).forEach(dim => {
+        const maxPossible = dimensionQuestionCounts[dim] || 1;
+        results[dim] = Math.round((results[dim] / maxPossible) * 100);
+      });
+      
+      return results;
     }
-    else if (testId === 'ambiente-trabajo') {
-      return {
-        estructura: 70,
-        creatividad: 85,
-        colaboracion: 90,
-        independencia: 65,
-      };
-    }
-    // Resultados predeterminados
+    
+    // For traditional tests, return some default values
     return {
       habilidad1: 75,
       habilidad2: 65,
@@ -49,24 +90,27 @@ export default function TestPage() {
     };
   };
 
-  useEffect(() => {
-    const currentTest = testData.tests.find(t => t.route === params.test);
-    if (currentTest) {
-      setTest(currentTest);
-      setAnswers(Array(currentTest.questions.length).fill(null));
-    }
-  }, [params.test]);
-
-  const handleSelect = (option: string) => {
+  const handleSelect = (option: any) => {
     const updated = [...answers];
     updated[current] = option;
     setAnswers(updated);
     
+    // Update dimension scores if applicable
+    if (test.dimensions) {
+      const question = test.questions[current];
+      if (question.dimension && option.score !== undefined) {
+        setDimensionScores(prev => ({
+          ...prev,
+          [question.dimension]: (prev[question.dimension] || 0) + option.score
+        }));
+      }
+    }
+    
     if (current < test.questions.length - 1) {
       setCurrent(current + 1);
     } else {
-      // Calcular y guardar resultados
-      const results = getTestResults(test.route, updated);
+      // Calculate and save results
+      const results = calculateResults(test, updated);
       const testResults = {
         testId: test.route,
         testName: test.name,
@@ -97,7 +141,7 @@ export default function TestPage() {
     router.back(); // Volver a la página anterior en lugar de redirigir al dashboard
   };
 
-  if (!test) {
+  if (loading) {
     return (
       <div className="min-h-screen bg-[#050A15] flex items-center justify-center">
         <div className="relative w-32 h-32">
@@ -124,14 +168,29 @@ export default function TestPage() {
     );
   }
 
+  if (!test) {
+    return (
+      <div className="min-h-screen bg-[#050A15] flex items-center justify-center">
+        <div className="text-center text-white">
+          <h1 className="text-2xl font-bold mb-4">Test no encontrado</h1>
+          <p className="mb-6">Lo sentimos, el test que buscas no está disponible.</p>
+          <button 
+            onClick={() => router.back()}
+            className="px-4 py-2 bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            Volver 
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   const question = test.questions[current];
   const progressPercentage = ((current + 1) / test.questions.length) * 100;
   
-  // Obtener el índice del test y determinar el color del planeta
-  const testIndex = testData.tests.findIndex(t => t.route === params.test);
-  const planetNumber = testIndex + 1;
-  const planetColors = ["#7be495", "#4f8cff", "#ffb347", "#ff6f69"];
-  const testColor = planetColors[testIndex % planetColors.length];
+  // Get the test color
+  const testColor = test.color || "#4f8cff";
+  const planetNumber = testsData.findIndex(t => t.route === params.test) + 1;
 
   return (
     <div className="min-h-screen flex flex-col bg-[#050A15] relative overflow-hidden">
@@ -186,7 +245,7 @@ export default function TestPage() {
           <div className="flex items-center mb-8">
             <div className="w-16 h-16 relative mr-4 flex-shrink-0">
               <img 
-                src={`/assets/img/tests/planet${planetNumber}.png`}
+                src={`/assets/img/tests/planet${planetNumber > 4 ? (planetNumber % 4) + 1 : planetNumber}.png`}
                 alt={test.name}
                 className="w-16 h-16"
               />
@@ -209,13 +268,13 @@ export default function TestPage() {
             {question.options.map((opt: any, idx: number) => (
               <button
                 key={idx}
-                onClick={() => handleSelect(opt.label)}
+                onClick={() => handleSelect(opt)}
                 className={`w-full text-left px-6 py-4 rounded-xl border transition-all duration-200
-                  ${answers[current] === opt.label
+                  ${answers[current]?.label === opt.label
                     ? `bg-opacity-30 border-indigo-500 text-white`
                     : "bg-slate-800/50 border-slate-700/50 text-gray-300 hover:bg-slate-700/50"}
                 `}
-                style={answers[current] === opt.label ? { backgroundColor: `${testColor}30`, borderColor: testColor } : {}}
+                style={answers[current]?.label === opt.label ? { backgroundColor: `${testColor}30`, borderColor: testColor } : {}}
               >
                 {opt.label}
               </button>
@@ -248,42 +307,57 @@ export default function TestPage() {
       {/* Modal de finalización */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0B1120]/90 backdrop-blur-sm">
-          <div className="bg-slate-900/80 backdrop-blur-md rounded-2xl p-8 border border-indigo-500/20 shadow-2xl max-w-md w-full">
-            <div className="flex justify-center mb-6">
-              <div className="w-20 h-20 rounded-full bg-blue-500/20 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+          <div className="max-w-md w-full bg-slate-900 rounded-2xl p-8 border border-indigo-500/30 shadow-2xl">
+            {/* Animación de completado */}
+            <div className="flex justify-center mb-8">
+              <div className="w-24 h-24 relative">
+                <div className="absolute inset-0 rounded-full border-4 border-green-500/30 flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
+                  <circle 
+                    cx="50" 
+                    cy="50" 
+                    r="40" 
+                    fill="transparent" 
+                    stroke="#22c55e" 
+                    strokeWidth="4"
+                    strokeDasharray="251.2"
+                    strokeDashoffset="0"
+                    transform="rotate(-90 50 50)"
+                    className="animate-pulse"
+                  />
                 </svg>
               </div>
             </div>
-            <h2 className="text-xl font-bold text-white text-center mb-2">¡Test Completado!</h2>
-            <p className="text-gray-300 text-center mb-6">Has finalizado exitosamente el test "{test.name}". Tus resultados han sido guardados.</p>
-            <div className="flex justify-center">
-              <button 
-                onClick={handleCloseModal}
-                className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg"
-              >
-                Ver resultados
-              </button>
+            
+            <h2 className="text-2xl font-bold text-white text-center mb-2">¡Test completado!</h2>
+            <p className="text-gray-400 text-center mb-6">Has completado el test de {test.name}.</p>
+            
+            <div className="grid gap-4 mb-8">
+              <div className="bg-slate-800/50 rounded-xl p-4 border border-slate-700/50">
+                <div className="text-gray-400 text-sm mb-3">Tus resultados están listos para ser explorados</div>
+                <div className="flex justify-center">
+                  <img 
+                    src={`/assets/img/tests/planet${planetNumber > 4 ? (planetNumber % 4) + 1 : planetNumber}.png`} 
+                    alt={test.name}
+                    className="w-16 h-16"
+                  />
+                </div>
+              </div>
             </div>
+            
+            <button
+              onClick={handleCloseModal}
+              className="w-full py-3 bg-gradient-to-r from-indigo-600 to-blue-600 text-white rounded-xl hover:from-indigo-700 hover:to-blue-700 transition-colors"
+            >
+              Explorar mis resultados
+            </button>
           </div>
         </div>
       )}
-
-      {/* Keyframes for dash animation */}
-      <style jsx>{`
-        @keyframes dash {
-          0% {
-            stroke-dashoffset: 251.2;
-          }
-          50% {
-            stroke-dashoffset: 0;
-          }
-          100% {
-            stroke-dashoffset: -251.2;
-          }
-        }
-      `}</style>
     </div>
   );
 } 

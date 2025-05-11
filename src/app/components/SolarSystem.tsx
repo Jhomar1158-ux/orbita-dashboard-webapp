@@ -2,8 +2,7 @@
 import React, { useEffect, useRef, useState, useMemo } from "react";
 import * as d3 from "d3";
 import CardInfo from "./CardInfo";
-import testData from "../data/test-questions.json";
-import { useRouter } from "next/navigation";
+import testsData from "../data/tests-data";
 
 interface Planet {
   name: string;
@@ -22,7 +21,6 @@ interface SolarSystemProps {
 }
 
 const SolarSystem: React.FC<SolarSystemProps> = ({ data, onLearnMore, onViewResults }) => {
-  const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
   const ref = useRef<SVGSVGElement | null>(null);
   const planetRefs = useRef<(SVGImageElement | null)[]>([]);
@@ -34,14 +32,14 @@ const SolarSystem: React.FC<SolarSystemProps> = ({ data, onLearnMore, onViewResu
 
   // Memoize planets data to prevent unnecessary recalculations
   const planets = useMemo(() => {
-    return data || testData.tests.map((test, index) => ({
+    return data || testsData.map((test, index) => ({
       name: test.name,
       progress: 0,
-      color: ["#7be495", "#4f8cff", "#ffb347", "#ff6f69"][index],
+      color: test.color || ["#7be495", "#4f8cff", "#ffb347", "#ff6f69"][index % 4],
       route: test.route,
       description: test.description || "Explora este test para descubrir más sobre ti mismo",
-      speed: 0.05 + Math.random() * 0.05, // Velocidad más lenta para mejor visibilidad
-      size: 80 + (index % 3) * 12 // Planetas más grandes
+      speed: test.speed || (0.05 + Math.random() * 0.05), // Velocidad más lenta para mejor visibilidad
+      size: test.size || (80 + (index % 3) * 12) // Planetas más grandes
     }));
   }, [data]);
 
@@ -158,14 +156,6 @@ const SolarSystem: React.FC<SolarSystemProps> = ({ data, onLearnMore, onViewResu
     const orbitGap = 120;
     const orbitCount = planets.length;
     
-    // Sol central
-    const sunGlow = svg.append("circle")
-      .attr("cx", center.x)
-      .attr("cy", center.y)
-      .attr("r", avatarRadius + 15)
-      .attr("fill", "url(#sunGlow)")
-      .attr("opacity", 0.6);
-    
     // Gradiente para el brillo del sol
     const sunGlowGradient = defs.append("radialGradient")
       .attr("id", "sunGlow")
@@ -175,43 +165,69 @@ const SolarSystem: React.FC<SolarSystemProps> = ({ data, onLearnMore, onViewResu
       
     sunGlowGradient.append("stop")
       .attr("offset", "0%")
-      .attr("stop-color", "#ffeb3b")
-      .attr("stop-opacity", 0.8);
+      .attr("stop-color", "#f0e6ff")
+      .attr("stop-opacity", 1);
+      
+    sunGlowGradient.append("stop")
+      .attr("offset", "40%")
+      .attr("stop-color", "#9f7aea")
+      .attr("stop-opacity", 0.7);
+      
+    sunGlowGradient.append("stop")
+      .attr("offset", "70%")
+      .attr("stop-color", "#667eea")
+      .attr("stop-opacity", 0.4);
       
     sunGlowGradient.append("stop")
       .attr("offset", "100%")
-      .attr("stop-color", "#ff9800")
+      .attr("stop-color", "#4c51bf")
       .attr("stop-opacity", 0);
     
-    // Animación de pulso para el brillo del sol
+    // Sol central - Core brillante
+    const sunGlow = svg.append("circle")
+      .attr("cx", center.x)
+      .attr("cy", center.y)
+      .attr("r", avatarRadius)
+      .attr("fill", "url(#sunGlow)")
+      .attr("filter", "drop-shadow(0 0 15px rgba(255, 235, 59, 0.7))");
+    
+    // Añadir anillos alrededor del core
+    svg.append("circle")
+      .attr("cx", center.x)
+      .attr("cy", center.y)
+      .attr("r", avatarRadius + 10)
+      .attr("fill", "none")
+      .attr("stroke", "rgba(159, 122, 234, 0.6)")
+      .attr("stroke-width", 2)
+      .attr("stroke-dasharray", "1,3");
+      
+    svg.append("circle")
+      .attr("cx", center.x)
+      .attr("cy", center.y)
+      .attr("r", avatarRadius + 20)
+      .attr("fill", "none")
+      .attr("stroke", "rgba(102, 126, 234, 0.4)")
+      .attr("stroke-width", 1.5)
+      .attr("stroke-dasharray", "1,5");
+    
+    // Animación de pulso para el brillo del core
     sunGlow.transition()
       .duration(4000)
-      .attr("r", avatarRadius + 25)
+      .attr("r", avatarRadius + 15)
       .ease(d3.easeSinInOut)
       .on("end", function repeat() {
         d3.select(this)
           .transition()
           .duration(4000)
-          .attr("r", avatarRadius + 15)
+          .attr("r", avatarRadius - 5)
           .ease(d3.easeSinInOut)
           .transition()
           .duration(4000)
-          .attr("r", avatarRadius + 25)
+          .attr("r", avatarRadius + 15)
           .ease(d3.easeSinInOut)
           .on("end", repeat);
       });
     
-    // Avatar/sol central
-    svg.append("image")
-      .attr("xlink:href", "/assets/img/tests/avatar.png")
-      .attr("x", center.x - avatarRadius)
-      .attr("y", center.y - avatarRadius)
-      .attr("width", avatarSize)
-      .attr("height", avatarSize)
-      .attr("clip-path", `circle(${avatarRadius}px at ${avatarRadius}px ${avatarRadius}px)`)
-      .style("filter", "drop-shadow(0 0 15px rgba(255, 235, 59, 0.7))");
-    
-
     // Dibuja órbitas como elipses
     for (let i = 0; i < orbitCount; i++) {
       const orbitRadius = orbitStart + i * orbitGap;
@@ -435,10 +451,12 @@ const SolarSystem: React.FC<SolarSystemProps> = ({ data, onLearnMore, onViewResu
           event.stopPropagation();
           setActiveTestIndex(i);
           setShowLoader(true);
-          // Usar la URL base correcta sin 'http://test'
           setTimeout(() => {
-            router.push(`/tests/${planet.route}/description`);
-          }, 1500);
+            if (onLearnMore) {
+              setShowLoader(false);
+              onLearnMore(planets[i]);
+            }
+          }, 1000);
         });
       
       // Ícono de comenzar (triángulo play)
