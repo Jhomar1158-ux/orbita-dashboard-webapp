@@ -219,6 +219,14 @@ const TestComponent: React.FC<TestComponentProps> = ({ test, onComplete }) => {
 
   const handleCloseModal = () => {
     setShowModal(false);
+    
+    // Show congratulatory message
+    showMessage({
+      text: "¡Felicidades! Has completado exitosamente este test. Tus respuestas nos ayudarán a orientarte mejor en tu camino vocacional.",
+      type: "congrats"
+    });
+    
+    // Call the onComplete callback
     onComplete();
   };
 

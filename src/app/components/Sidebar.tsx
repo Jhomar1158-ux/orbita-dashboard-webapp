@@ -61,8 +61,17 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSection, setActiveSection }) =>
         ))}
       </nav>
 
+      {/* Version info */}
+      <div className="p-4 text-center text-xs text-gray-500 border-t border-indigo-500/20">
+        <p>VocaSpacio v1.0</p>
+        <p>Misión en curso</p>
+      </div>
+      
+      {/* Spacer to push footer to bottom */}
+      <div className="flex-grow"></div>
+      
       {/* Footer */}
-      <div className="p-4 border-t border-indigo-500/20">
+      <div className="p-4">
         <button
           onClick={() => router.push('/')}
           className="w-full flex items-center p-3 rounded-lg text-gray-400 hover:bg-slate-800/70 hover:text-gray-200 transition-colors"
@@ -70,14 +79,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSection, setActiveSection }) =>
           <span className="w-8 h-8 flex items-center justify-center mr-3 text-xl">
             🚪
           </span>
-          <span className="text-sm font-medium">Salir</span>
+          <span className="text-sm font-medium">Pausar exploración</span>
         </button>
-      </div>
-      
-      {/* Version info */}
-      <div className="p-4 text-center text-xs text-gray-500">
-        <p>VocaSpacio v1.0</p>
-        <p>Misión en curso</p>
       </div>
     </div>
   );

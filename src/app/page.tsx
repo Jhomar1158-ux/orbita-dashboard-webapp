@@ -12,9 +12,13 @@ import {
 import Image from 'next/image';
 import testsData, { Test } from './data/tests-data';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-// @ts-expect-error - El componente existe pero no encuentra las declaraciones de tipo
 import TestComponent from './components/TestComponent';
 import TestsGrid from './components/TestsGrid';
+import PersonalPathway from './components/PersonalPathway';
+import CareerDetail, { getExampleCareerDetail } from './components/CareerDetail';
+import VideoGallery from './components/VideoGallery';
+import SectionGuide from './components/SectionGuide';
+import PremiumModal from './components/PremiumModal';
 
 // Definir la interfaz para los elementos del menú con submenús
 interface MenuItem {
@@ -38,6 +42,9 @@ export default function Home() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [activeTest, setActiveTest] = useState<Test | null>(null);
   const [showTestInterface, setShowTestInterface] = useState(false);
+  const [activeVideoCategory, setActiveVideoCategory] = useState<string>("all");
+  const [expertsCareerFilter, setExpertsCareerFilter] = useState<string | null>(null);
+  const [isPremiumModalOpen, setIsPremiumModalOpen] = useState(false);
 
   // Use the testsData from our imported module
   const tests = testsData.map(test => ({
@@ -87,7 +94,6 @@ export default function Home() {
     { id: 'home', label: 'Tu Espacio', icon: faHome },
     { id: 'roadmap', label: 'Tu Camino Personal', icon: faRoad },
     { id: 'tests', label: 'Descúbrete', icon: faFileAlt },
-    { id: 'recommendations', label: 'Carreras para Ti', icon: faGraduationCap },
     { id: 'capsules', label: 'Inspírate', icon: faVideo },
     { id: 'counseling', label: 'Habla con Expertos', icon: faUserMd },
     { id: 'premium', label: 'Desbloquea Tu Potencial', icon: faCrown, highlight: true }
@@ -95,6 +101,12 @@ export default function Home() {
 
   // Función para manejar clics en elementos del menú
   const handleMenuClick = (id: string) => {
+    // Si es la opción premium, abrimos el modal en lugar de navegar
+    if (id === 'premium') {
+      setIsPremiumModalOpen(true);
+      return;
+    }
+    
     // Activamos la sección correspondiente
     setActiveSection(id);
     
@@ -335,7 +347,7 @@ export default function Home() {
                 </p>
               </div>
               <button 
-                onClick={() => handleMenuClick('premium')}
+                onClick={() => setIsPremiumModalOpen(true)}
                 className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 active:from-amber-600 active:to-amber-700 active:scale-95 text-white font-bold py-3 px-6 rounded-xl shadow-md flex items-center transition-all duration-200 ease-in-out transform hover:shadow-lg hover:-translate-y-1 group"
               >
                 <span>Explorar Premium</span>
@@ -345,48 +357,303 @@ export default function Home() {
           </div>
         </div>
       );
+    } else if (activeSection === 'roadmap') {
+      return (
+        <div className="space-y-8">
+           
+
+          {/* Módulo 1: Exploración de Carreras */}
+          <div className="mb-12">
+            <h2 className="text-xl font-bold mb-4 text-white flex items-center">
+              <span className="bg-blue-500/20 text-blue-400 p-2 rounded-lg mr-3">
+                <FontAwesomeIcon icon={faGraduationCap} />
+              </span>
+              Exploración de Carreras
+            </h2>
+            <PersonalPathway 
+              onSpeakWithExperts={(career) => {
+                setExpertsCareerFilter(career);
+                setActiveSection('counseling');
+                window.scrollTo(0, 0);
+              }}
+            />
+          </div>
+          
+          {/* Módulo 2: Perspectiva Laboral */}
+          <div className="mb-12">
+            <CareerDetail {...getExampleCareerDetail("Ingeniería de Software")} />
+          </div>
+          
+         
+        </div>
+      );
     } else if (activeSection === 'tests') {
       return (
-        <div className="space-y-8">            
-            
-            {showTestInterface && activeTest ? (
-              <div className="mt-4">
-                <TestComponent test={activeTest} onComplete={() => {
-                  setShowTestInterface(false);
-                  setActiveTest(null);
-                  // Refresh to show updated results
-                  router.refresh();
-                }} />
+        <div className="space-y-8">
+          <div className="bg-gray-800/80 backdrop-blur-sm rounded-xl border border-gray-700/80 p-6 mb-8">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+              <div>
+                <h2 className="text-xl font-bold flex items-center">
+                  <FontAwesomeIcon icon={faFileAlt} className="text-blue-400 mr-3" />
+                  Descúbrete
+                </h2>
+                <p className="text-gray-400 text-sm mt-1">
+                  Explora nuestros tests para conocer tus fortalezas, intereses y mejor camino profesional
+                </p>
               </div>
-            ) : (
-              <TestsGrid 
-                onSelectTest={(test) => {
-                  setIsLoading(true);
-                  setLoadingProgress(0);
+            </div>
+          </div>            
+          
+          {showTestInterface && activeTest ? (
+            <div className="mt-4">
+              <TestComponent test={activeTest} onComplete={() => {
+                setShowTestInterface(false);
+                setActiveTest(null);
+                // Refresh to show updated results
+                router.refresh();
+              }} />
+            </div>
+          ) : (
+            <TestsGrid 
+              onSelectTest={(test) => {
+                setIsLoading(true);
+                setLoadingProgress(0);
+                
+                // Simulate loading
+                const interval = setInterval(() => {
+                  setLoadingProgress(prev => {
+                    const next = prev + Math.random() * 5;
+                    return next > 100 ? 100 : next;
+                  });
+                }, 50);
+                
+                // After loading completes
+                setTimeout(() => {
+                  clearInterval(interval);
+                  setLoadingProgress(100);
                   
-                  // Simulate loading
-                  const interval = setInterval(() => {
-                    setLoadingProgress(prev => {
-                      const next = prev + Math.random() * 5;
-                      return next > 100 ? 100 : next;
-                    });
-                  }, 50);
-                  
-                  // After loading completes
                   setTimeout(() => {
-                    clearInterval(interval);
-                    setLoadingProgress(100);
-                    
-                    setTimeout(() => {
-                      setActiveTest(test);
-                      setShowTestInterface(true);
-                      setIsLoading(false);
-                    }, 500);
-                  }, 1500);
-                }} 
-              />
+                    setActiveTest(test);
+                    setShowTestInterface(true);
+                    setIsLoading(false);
+                  }, 500);
+                }, 1500);
+              }} 
+            />
+          )}
+        </div>
+      );
+    } else if (activeSection === 'capsules') {
+      return (
+        <div className="space-y-8">
+          <h2 className="text-xl font-bold mb-6 flex items-center">
+            <FontAwesomeIcon icon={faVideo} className="text-blue-400 mr-3" />
+            Cápsulas de Orientación
+          </h2>
+          
+          <VideoGallery 
+            activeCategory={activeVideoCategory || "all"}
+            onCategoryChange={setActiveVideoCategory}
+            onPremiumClick={() => setIsPremiumModalOpen(true)}
+          />
+        </div>
+      );
+    } else if (activeSection === 'counseling') {
+      // Datos simulados de expertos
+      const experts = [
+        {
+          id: 'exp1',
+          name: 'Dra. María González',
+          specialty: 'Ingeniería de Software',
+          experience: '15 años',
+          availability: ['Lunes', 'Miércoles', 'Viernes'],
+          nextAvailable: '15 Nov, 15:30',
+          photo: '/assets/img/experts/expert-sw-1.jpg'
+        },
+        {
+          id: 'exp2',
+          name: 'Dr. Carlos Mendoza',
+          specialty: 'Diseño UX/UI',
+          experience: '12 años',
+          availability: ['Martes', 'Jueves'],
+          nextAvailable: '16 Nov, 10:00',
+          photo: '/assets/img/experts/expert-ux-1.jpg'
+        },
+        {
+          id: 'exp3',
+          name: 'Lic. Ana Silva',
+          specialty: 'Ciencia de Datos',
+          experience: '10 años',
+          availability: ['Lunes', 'Miércoles', 'Jueves'],
+          nextAvailable: '14 Nov, 17:00',
+          photo: '/assets/img/experts/expert-data-1.jpg'
+        },
+        {
+          id: 'exp4',
+          name: 'Ing. Pablo Rivarola',
+          specialty: 'Ingeniería de Software',
+          experience: '8 años',
+          availability: ['Martes', 'Viernes'],
+          nextAvailable: '17 Nov, 14:30',
+          photo: '/assets/img/experts/expert-sw-2.jpg'
+        }
+      ];
+
+      // Filtrar expertos por carrera seleccionada
+      const filteredExperts = expertsCareerFilter 
+        ? experts.filter(expert => expert.specialty === expertsCareerFilter)
+        : experts;
+
+      return (
+        <div className="space-y-8">
+          <div className="bg-gray-800/80 backdrop-blur-sm rounded-xl border border-gray-700/80 p-6">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+              <div>
+                <h2 className="text-xl font-bold flex items-center">
+                  <FontAwesomeIcon icon={faUserMd} className="text-purple-400 mr-3" />
+                  Habla con Expertos
+                </h2>
+                <p className="text-gray-400 text-sm mt-1">
+                  Reserva sesiones con orientadores especializados en diferentes áreas profesionales
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          {/* Filtro activo */}
+          {expertsCareerFilter && (
+            <div className="bg-purple-900/30 rounded-xl p-4 border border-purple-700/50 mb-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between">
+                <div className="flex items-center">
+                  <FontAwesomeIcon icon={faGraduationCap} className="text-purple-400 mr-2" />
+                  <span className="text-white font-medium">Mostrando expertos en: </span>
+                  <span className="ml-2 bg-purple-800/80 text-purple-200 px-3 py-1 rounded-lg">
+                    {expertsCareerFilter}
+                  </span>
+                </div>
+                <button 
+                  onClick={() => setExpertsCareerFilter(null)}
+                  className="mt-3 sm:mt-0 text-sm bg-purple-800/50 hover:bg-purple-800 text-gray-200 px-3 py-1.5 rounded-lg transition-colors flex items-center"
+                >
+                  <span>Quitar filtro</span>
+                  <FontAwesomeIcon icon={faTimes} className="ml-2 text-xs" />
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Listado de expertos */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {filteredExperts.length > 0 ? (
+              filteredExperts.map(expert => (
+                <div 
+                  key={expert.id}
+                  className="bg-gray-800/60 rounded-xl overflow-hidden border border-gray-700/50 hover:border-purple-500/50 transition-all duration-200"
+                >
+                  <div className="p-5 flex flex-col sm:flex-row">
+                    <div className="w-20 h-20 bg-gray-700 rounded-full flex-shrink-0 overflow-hidden mb-4 sm:mb-0 sm:mr-4 mx-auto sm:mx-0">
+                      <div className="relative w-full h-full">
+                        <Image 
+                          src={expert.photo}
+                          alt={expert.name}
+                          width={80}
+                          height={80}
+                          className="object-cover w-full h-full"
+                          onError={(e) => {
+                            // La imagen falló al cargar, el event target será reemplazado por el fallback
+                            const target = e.target as HTMLImageElement;
+                            target.style.display = 'none';
+                            target.parentElement!.classList.add('expert-fallback');
+                          }}
+                        />
+                        {/* Fallback que se mostrará si la imagen falla */}
+                        <div className="expert-fallback hidden absolute inset-0 w-full h-full bg-gradient-to-br from-purple-700 to-blue-700 flex items-center justify-center">
+                          <span className="text-2xl font-bold text-white">
+                            {expert.name.split(' ').map(n => n[0]).join('')}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex-1 text-center sm:text-left">
+                      <h3 className="text-lg font-bold text-white">{expert.name}</h3>
+                      <p className="text-purple-300 text-sm mb-2">
+                        Especialista en {expert.specialty}
+                      </p>
+                      <p className="text-gray-400 text-xs mb-3">
+                        {expert.experience} de experiencia
+                      </p>
+                      <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
+                        {expert.availability.map((day, idx) => (
+                          <span key={idx} className="bg-gray-700/80 text-gray-300 text-xs px-2 py-1 rounded-full">
+                            {day}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="border-t border-gray-700/50 p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between bg-gray-800/40">
+                    <div className="text-sm text-gray-400 mb-3 sm:mb-0 text-center sm:text-left">
+                      <FontAwesomeIcon icon={faCalendarAlt} className="mr-2 text-purple-400" />
+                      Próxima disponibilidad: {expert.nextAvailable}
+                    </div>
+                    <button className="bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-lg text-sm flex items-center justify-center transition-colors">
+                      <span>Agendar sesión</span>
+                      <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
+                    </button>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="col-span-2 bg-gray-800/60 rounded-xl p-8 border border-gray-700/50 text-center">
+                <FontAwesomeIcon icon={faUserMd} className="text-gray-600 text-4xl mb-4" />
+                <h3 className="text-xl font-bold text-gray-300 mb-2">No hay expertos disponibles</h3>
+                <p className="text-gray-400 mb-6">
+                  No encontramos especialistas para la carrera seleccionada en este momento.
+                </p>
+                <button 
+                  onClick={() => setExpertsCareerFilter(null)}
+                  className="bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-lg inline-flex items-center transition-colors"
+                >
+                  <span>Ver todos los expertos</span>
+                  <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
+                </button>
+              </div>
             )}
           </div>
+        </div>
+      );
+    } else if (activeSection === 'premium') {
+      // Mostrar el modal automáticamente cuando se navega directamente a esta sección
+      setTimeout(() => {
+        setIsPremiumModalOpen(true);
+      }, 100);
+      
+      return (
+        <div className="space-y-8">
+          <div className="bg-gray-800/80 backdrop-blur-sm rounded-xl border border-[#433667] p-6 mb-4">
+            <div className="flex flex-col md:flex-row items-start md:items-center">
+              <div className="p-3 bg-amber-600/30 rounded-full mb-4 md:mb-0 md:mr-5">
+                <FontAwesomeIcon icon={faCrown} className="text-amber-400 text-3xl" />
+              </div>
+              <div>
+                <h2 className="text-xl font-bold text-white mb-1">Plan Premium</h2>
+                <p className="text-gray-300">
+                  Accede a todas las funcionalidades avanzadas para maximizar tu proceso de orientación vocacional.
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="flex justify-center">
+            <button
+              onClick={() => setIsPremiumModalOpen(true)}
+              className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-white font-bold py-4 px-8 rounded-xl shadow-lg flex items-center transition-all"
+            >
+              <FontAwesomeIcon icon={faCrown} className="mr-2" />
+              <span>Ver beneficios Premium</span>
+            </button>
+          </div>
+        </div>
       );
     }
     
@@ -399,8 +666,21 @@ export default function Home() {
   };
 
   return (
-    <div className="flex h-screen bg-[#0B1120] text-white overflow-hidden">
-      {/* Loader Simplificado */}
+    <main className="flex flex-col min-h-screen bg-[#0a0d14] bg-gradient-to-b from-[#0a0d14] to-[#0a0e1a] text-gray-200">
+      {/* Guide for current section */}
+      <SectionGuide 
+        section={activeSection} 
+        subsection={
+          activeSection === 'tests' && showingSolarSystem ? 'solarSystem' : 
+          activeSection === 'tests' && activeTest ? 'testStart' : 
+          activeSection === 'capsules' ? `videos${activeVideoCategory.charAt(0).toUpperCase() + activeVideoCategory.slice(1)}` : 
+          activeSection === 'counseling' ? `counseling${expertsCareerFilter ? `-${expertsCareerFilter.replace(/\s+/g, '-').toLowerCase()}` : ''}` : 
+          undefined
+        }
+        testId={activeTest?.route}
+      />
+      
+      {/* Loader overlay */}
       {isLoading && (
         <div className={`fixed inset-0 z-[100] bg-[#0B1120]/90 backdrop-blur-sm flex items-center justify-center transition-opacity duration-500 ${showingSolarSystem ? 'opacity-0' : 'opacity-100'}`}>
           <div className="flex flex-col items-center justify-center text-center">
@@ -628,7 +908,7 @@ export default function Home() {
         </button>
         
         {/* Contenido principal */}
-        <div className="flex-1 flex flex-col h-screen overflow-y-auto pt-14 md:pt-0 w-full max-w-full">
+        <div className="flex-1 flex flex-col h-screen overflow-y-auto pt-14 md:pt-0 w-full max-w-full modal-content">
           {/* Contenido del dashboard aquí */}
           <div className="flex-1 bg-gradient-to-b from-[#181F2B] to-[#0B1120] p-4 md:p-8 relative">
             {/* Fondo espacial */}
@@ -726,7 +1006,13 @@ export default function Home() {
           }
         }
       `}</style>
-    </div>
+
+      {/* Modal Premium */}
+      <PremiumModal 
+        isOpen={isPremiumModalOpen}
+        onClose={() => setIsPremiumModalOpen(false)}
+      />
+    </main>
   );
 }
 

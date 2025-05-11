@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState, useMemo } from "react";
 import * as d3 from "d3";
 import CardInfo from "./CardInfo";
 import testsData from "../data/tests-data";
+import { useGuide } from "../context/GuideContext";
 
 interface Planet {
   name: string;
@@ -29,6 +30,7 @@ const SolarSystem: React.FC<SolarSystemProps> = ({ data, onLearnMore, onViewResu
   const [scale, setScale] = useState(1);
   const [showLoader, setShowLoader] = useState(false);
   const [activeTestIndex, setActiveTestIndex] = useState<number | null>(null);
+  const { showMessage } = useGuide();
 
   // Memoize planets data to prevent unnecessary recalculations
   const planets = useMemo(() => {
@@ -354,7 +356,7 @@ const SolarSystem: React.FC<SolarSystemProps> = ({ data, onLearnMore, onViewResu
         .attr("class", `planet-${i}`)
         .style("cursor", "pointer")
         .on("click", () => {
-          setSelectedPlanet(i === selectedPlanet ? null : i);
+          handlePlanetClick(i);
         });
         
       // Nombre del planeta siempre visible
@@ -416,7 +418,7 @@ const SolarSystem: React.FC<SolarSystemProps> = ({ data, onLearnMore, onViewResu
         })
         .on("click", (event) => {
           event.stopPropagation();
-          if (onViewResults) onViewResults(planets[i]);
+          handleViewResultsClick();
         });
       
       // Ícono de información
@@ -452,10 +454,7 @@ const SolarSystem: React.FC<SolarSystemProps> = ({ data, onLearnMore, onViewResu
           setActiveTestIndex(i);
           setShowLoader(true);
           setTimeout(() => {
-            if (onLearnMore) {
-              setShowLoader(false);
-              onLearnMore(planets[i]);
-            }
+            handleLearnMoreClick();
           }, 1000);
         });
       
@@ -558,6 +557,51 @@ const SolarSystem: React.FC<SolarSystemProps> = ({ data, onLearnMore, onViewResu
       d3.select(`.info-panel-${selectedPlanet}`).transition().duration(200).attr("opacity", 1);
     }
   }, [selectedPlanet, planets]);
+
+  // Function to handle planet selection
+  const handlePlanetClick = (index: number) => {
+    if (selectedPlanet === index) {
+      setSelectedPlanet(null);
+    } else {
+      setSelectedPlanet(index);
+      
+      // Show guide message about the selected planet/test
+      showMessage({
+        text: `Has seleccionado el test de "${planets[index].name}". ${planets[index].description?.slice(0, 60)}... ¿Te gustaría explorarlo?`,
+        type: "tip"
+      });
+    }
+  };
+  
+  // When user clicks "View Results" button
+  const handleViewResultsClick = () => {
+    if (selectedPlanet !== null && onViewResults) {
+      showMessage({
+        text: "Exploremos tus resultados para ver qué revelan sobre ti y tus inclinaciones profesionales.",
+        type: "info"
+      });
+      setShowLoader(true);
+      setTimeout(() => {
+        setShowLoader(false);
+        onViewResults(planets[selectedPlanet]);
+      }, 500);
+    }
+  };
+  
+  // When user clicks "Learn More" button
+  const handleLearnMoreClick = () => {
+    if (selectedPlanet !== null && onLearnMore) {
+      showMessage({
+        text: "Descubramos más sobre este test. Te ayudará a entender mejor tus preferencias vocacionales.",
+        type: "info"
+      });
+      setShowLoader(true);
+      setTimeout(() => {
+        setShowLoader(false);
+        onLearnMore(planets[selectedPlanet]);
+      }, 500);
+    }
+  };
 
   // Renderizar el componente
   return (
@@ -706,6 +750,19 @@ const SolarSystem: React.FC<SolarSystemProps> = ({ data, onLearnMore, onViewResu
           );
         })}
       </div>
+      
+      {selectedPlanet !== null && (
+        <div className="absolute bottom-4 left-4 right-4 lg:left-auto lg:w-96 z-10">
+          <CardInfo
+            title={planets[selectedPlanet].name}
+            description={planets[selectedPlanet].description || ""}
+            progress={planets[selectedPlanet].progress}
+            color={planets[selectedPlanet].color}
+            onLearnMore={handleLearnMoreClick}
+            onViewResults={handleViewResultsClick}
+          />
+        </div>
+      )}
     </div>
   );
 };

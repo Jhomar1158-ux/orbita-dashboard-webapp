@@ -4,6 +4,7 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import testsData, { Test } from '../data/tests-data';
+import TestHistory from './TestHistory';
 
 interface TestsGridProps {
   onSelectTest: (test: Test) => void;
@@ -22,8 +23,18 @@ const TestsGrid: React.FC<TestsGridProps> = ({ onSelectTest }) => {
 
   return (
     <div className="w-full">
+      {/* Sección de Tests Disponibles */}
+      <h2 className="text-2xl font-bold mb-6 text-white flex items-center">
+        <span className="bg-blue-500/20 text-blue-400 p-2 rounded-lg mr-3">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 2a6 6 0 00-4.5 9.975V13.5a.75.75 0 001.5 0v-1.025A6 6 0 0010 4z" clipRule="evenodd" />
+          </svg>
+        </span>
+        Tests Disponibles
+      </h2>
+      
       {/* Grid de tests */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
         {testsData.map((test, index) => {
           const hasResults = hasTestResults(test.route);
           const isFirstTest = index === 0;
@@ -128,6 +139,14 @@ const TestsGrid: React.FC<TestsGridProps> = ({ onSelectTest }) => {
           );
         })}
       </div>
+
+      {/* Separador con estilo espacial */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent my-12 relative">
+        <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-blue-900/60 rounded-full w-4 h-4 border border-blue-400/30 shadow-lg shadow-blue-500/50"></div>
+      </div>
+      
+      {/* Sección de historial de tests */}
+      <TestHistory />
     </div>
   );
 };
