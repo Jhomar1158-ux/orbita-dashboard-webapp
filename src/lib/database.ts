@@ -1,4 +1,7 @@
+import { Database } from "@/types/database.types";
 import { supabase } from "./supabase";
+
+type TableName = keyof Database["public"]["Tables"];
 
 export class DatabaseService {
   private supabase;
@@ -7,7 +10,7 @@ export class DatabaseService {
     this.supabase = supabase;
   }
 
-  async fetchAll(tableName: string) {
+  async fetchAll(tableName: TableName) {
     const { data, error } = await this.supabase.from(tableName).select("*");
 
     if (error) {
@@ -17,7 +20,7 @@ export class DatabaseService {
     return data;
   }
 
-  async fetchById(tableName: string, id: string | number) {
+  async fetchById(tableName: TableName, id: string) {
     const { data, error } = await this.supabase
       .from(tableName)
       .select("*")
@@ -31,7 +34,7 @@ export class DatabaseService {
     return data;
   }
 
-  async insert(tableName: string, data: any) {
+  async insert(tableName: TableName, data: any) {
     const { data: insertedData, error } = await this.supabase
       .from(tableName)
       .insert(data)
@@ -44,7 +47,7 @@ export class DatabaseService {
     return insertedData;
   }
 
-  async update(tableName: string, id: string | number, data: any) {
+  async update(tableName: TableName, id: string, data: any) {
     const { data: updatedData, error } = await this.supabase
       .from(tableName)
       .update(data)
@@ -58,7 +61,7 @@ export class DatabaseService {
     return updatedData;
   }
 
-  async remove(tableName: string, id: string | number) {
+  async remove(tableName: TableName, id: string) {
     const { error } = await this.supabase.from(tableName).delete().eq("id", id);
 
     if (error) {

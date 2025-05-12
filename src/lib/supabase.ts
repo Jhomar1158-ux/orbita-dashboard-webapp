@@ -1,3 +1,4 @@
+import { Database } from "@/types/database.types";
 import { createClient } from "@supabase/supabase-js";
 
 const supabaseUrl = process.env.SUPABASE_URL;
@@ -7,11 +8,15 @@ if (!supabaseUrl || !supabaseServiceKey) {
   throw new Error("Faltan variables de entorno de Supabase.");
 }
 
-export const supabase = createClient(supabaseUrl, supabaseServiceKey, {
-  auth: {
-    autoRefreshToken: false,
-    persistSession: false,
-  },
-});
+export const supabase = createClient<Database>(
+  supabaseUrl,
+  supabaseServiceKey,
+  {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false,
+    },
+  }
+);
 
 export const supabaseAdmin = supabase;

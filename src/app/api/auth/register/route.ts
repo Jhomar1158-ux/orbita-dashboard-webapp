@@ -44,6 +44,33 @@ export async function POST(request: Request) {
       );
     }
 
+    // Obtener el ID del paquete freemium
+    const { data: freemiumPackage, error: packageError } = await supabase
+      .from("subscription_packages")
+      .select("id")
+      .eq("name", "Freemium")
+      .single();
+
+    if (packageError || !freemiumPackage) {
+      console.error("Error al obtener paquete freemium:", packageError);
+      // Continuamos el registro aunque haya un error con el paquete
+    } else {
+      // Asignar el paquete freemium al usuario
+      const { error: subscriptionError } = await supabase
+        .from("user_subscriptions")
+        .insert({
+          user_id: authData.user.id,
+          package_id: freemiumPackage.id,
+          credits_remaining: 0,
+          is_active: true,
+        });
+
+      if (subscriptionError) {
+        console.error("Error al asignar paquete freemium:", subscriptionError);
+        // Continuamos el registro aunque haya un error con la suscripción
+      }
+    }
+
     const response = NextResponse.json(
       {
         message: "Usuario registrado exitosamente",

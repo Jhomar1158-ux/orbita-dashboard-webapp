@@ -8,6 +8,15 @@ import React, {
   ReactNode,
 } from "react";
 
+// Definir tipo para el paquete de suscripción
+export interface SubscriptionPackage {
+  id: string;
+  name: string;
+  is_premium: boolean;
+  features: Record<string, boolean>;
+  credits_remaining?: number;
+}
+
 // Definir tipos para el usuario
 export interface UserProfile {
   id: string;
@@ -24,6 +33,7 @@ export interface UserProfile {
       province?: string;
     };
   };
+  subscription?: SubscriptionPackage;
 }
 
 // Definir tipo para el contexto
@@ -33,6 +43,7 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   getUserData: () => UserProfile | null;
+  hasFeature: (featureName: string) => boolean;
 }
 
 // Crear contexto con valores predeterminados
@@ -42,6 +53,7 @@ const AuthContext = createContext<AuthContextType>({
   login: async () => {},
   logout: async () => {},
   getUserData: () => null,
+  hasFeature: () => false,
 });
 
 // Hook personalizado para usar el contexto de autenticación
@@ -56,11 +68,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
   // Cargar usuario desde localStorage al iniciar
   useEffect(() => {
-    const loadUser = () => {
+    const loadUser = async () => {
       try {
         const storedUser = localStorage.getItem("authUser");
+
         if (storedUser) {
-          setUser(JSON.parse(storedUser));
+          const userData: UserProfile = JSON.parse(storedUser);
+          // Cargar información de suscripción
+          await loadUserSubscription(userData);
         }
       } catch (error) {
         console.error("Error cargando datos de usuario:", error);
@@ -71,6 +86,38 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
     loadUser();
   }, []);
+
+  // Función para cargar la información de suscripción del usuario
+  const loadUserSubscription = async (userData: UserProfile) => {
+    try {
+      const response = await fetch(
+        `/api/auth/subscription?userId=${userData.id}`
+      );
+
+      if (!response.ok) {
+        console.error("Error al cargar la suscripción:", response.statusText);
+        setUser(userData);
+        return;
+      }
+
+      const data = await response.json();
+
+      if (data.subscription) {
+        // Actualizar el usuario con la información de suscripción
+        userData.subscription = data.subscription;
+        setUser(userData);
+
+        // Actualizar en localStorage
+        localStorage.setItem("authUser", JSON.stringify(userData));
+      } else {
+        // Si no hay suscripción activa, simplemente establecer el usuario
+        setUser(userData);
+      }
+    } catch (error) {
+      console.error("Error procesando suscripción:", error);
+      setUser(userData);
+    }
+  };
 
   // Función para iniciar sesión
   const login = async (email: string, password: string) => {
@@ -99,8 +146,21 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         profileData: data.user.profileData,
       };
 
+      // Si la respuesta incluye datos de suscripción, usarlos directamente
+      if (data.user.subscription) {
+        userData.subscription = {
+          id: data.user.subscription.id,
+          name: data.user.subscription.packageName,
+          is_premium: data.user.subscription.isPremium,
+          features: {}, // Se completa después con loadUserSubscription
+          credits_remaining: data.user.subscription.creditsRemaining,
+        };
+      }
+
       localStorage.setItem("authUser", JSON.stringify(userData));
-      setUser(userData);
+
+      // Cargar información completa de suscripción (incluye features)
+      await loadUserSubscription(userData);
     } catch (error) {
       console.error("Error en inicio de sesión:", error);
       throw error;
@@ -125,9 +185,18 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     return user;
   };
 
+  // Función para verificar si el usuario tiene acceso a una característica
+  const hasFeature = (featureName: string): boolean => {
+    if (!user || !user.subscription || !user.subscription.features) {
+      return false;
+    }
+
+    return !!user.subscription.features[featureName];
+  };
+
   return (
     <AuthContext.Provider
-      value={{ user, isLoading, login, logout, getUserData }}
+      value={{ user, isLoading, login, logout, getUserData, hasFeature }}
     >
       {children}
     </AuthContext.Provider>
