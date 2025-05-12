@@ -35,11 +35,46 @@ export async function POST(request: Request) {
       console.error("Error al obtener perfil:", profileError);
     }
 
+    // Obtener información básica del paquete de suscripción
+    const { data: subscriptionData, error: subscriptionError } = await supabase
+      .from("user_subscriptions")
+      .select(
+        `
+        id,
+        credits_remaining,
+        is_active,
+        package_id,
+        subscription_packages:package_id (
+          id,
+          name,
+          is_premium
+        )
+      `
+      )
+      .eq("user_id", data.user.id)
+      .eq("is_active", true)
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .single();
+
+    if (subscriptionError) {
+      console.error("Error al obtener suscripción:", subscriptionError);
+    }
+
     const response = NextResponse.json({
       user: {
         id: data.user.id,
         email: data.user.email,
         name: profileData?.name || "",
+        profileData: profileData || undefined,
+        subscription: subscriptionData
+          ? {
+              id: subscriptionData.package_id,
+              packageName: subscriptionData.subscription_packages?.name,
+              isPremium: subscriptionData.subscription_packages?.is_premium,
+              creditsRemaining: subscriptionData.credits_remaining,
+            }
+          : undefined,
       },
       session: {
         access_token: data.session?.access_token,

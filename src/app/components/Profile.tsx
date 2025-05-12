@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useAuth } from "../context/AuthContext";
+import SubscriptionStatus from "./SubscriptionStatus";
 
 const Profile = () => {
   const { user } = useAuth();
@@ -86,6 +87,9 @@ const Profile = () => {
 
           {/* Progress and stats */}
           <div className="flex-1">
+            {/* Información de suscripción */}
+            <SubscriptionStatus />
+
             <h3 className="text-lg font-medium text-white mb-4">
               Estadísticas de Exploración
             </h3>

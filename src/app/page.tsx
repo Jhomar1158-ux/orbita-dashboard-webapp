@@ -710,7 +710,7 @@ export default function Home() {
                           }}
                         />
                         {/* Fallback que se mostrará si la imagen falla */}
-                        <div className="expert-fallback hidden absolute inset-0 w-full h-full bg-gradient-to-br from-purple-700 to-blue-700 flex items-center justify-center">
+                        <div className="expert-fallback hidden absolute inset-0 w-full h-full bg-gradient-to-br from-purple-700 to-blue-700 items-center justify-center">
                           <span className="text-2xl font-bold text-white">
                             {expert.name
                               .split(" ")
